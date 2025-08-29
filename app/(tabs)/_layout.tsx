@@ -57,10 +57,33 @@ export default function TabLayout() {
 				}}
 			/>
 			<Tabs.Screen
-				name="two"
+				name="announcements"
 				options={{
-					title: 'Tab Two',
-					tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+					title: '',
+					tabBarStyle: { backgroundColor: '#ffa34a' },
+					headerStyle: { backgroundColor: '#151932' },
+					tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+					headerLeft: () => (
+						<View style={{ backgroundColor: 'transparent', marginLeft: 25 }}>
+							<Text style={{ fontSize: 28.6 }}>iskolar</Text>
+							<Text style={{ fontSize: 7.1 }}>by UNLAD</Text>
+						</View>
+					),
+					headerRight: () => (
+						<View style={{ marginRight: 25, backgroundColor: 'transparent', flexDirection: "row", gap: 10 }}>
+							<Link href="/modal" asChild>
+								<Pressable onPress={() => console.log("notifs")}>
+									<Entypo name='bell' size={24} color='#fff' />
+								</Pressable>
+							</Link>
+
+							<Link href="/modal" asChild>
+								<Pressable onPress={() => console.log("settings")}>
+									<Entypo name='cog' size={24} color='#fff' />
+								</Pressable>
+							</Link>
+						</View>
+					),
 				}}
 			/>
 		</Tabs>
