@@ -23,15 +23,6 @@ export default function TabLayout() {
 					headerShown: false
 				}}>
 				<Tabs.Screen
-					name="signup"
-					options={{
-						title: '',
-						tabBarStyle: { display: 'none' },
-						headerShown: false,
-						href: null,
-					}}
-				/>
-				<Tabs.Screen
 					name="index"
 					options={{
 						title: '',
