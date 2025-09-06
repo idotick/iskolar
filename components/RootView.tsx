@@ -1,8 +1,5 @@
 import { StyleSheet } from "react-native";
-
 import { View } from "@/components/Themed";
-
-
 
 export default function RootView({spaced, children}: {spaced?: boolean, children: any}) {
 	let paddingVal;

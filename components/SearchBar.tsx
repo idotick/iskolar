@@ -1,6 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { TextInput, StyleSheet } from 'react-native';
 import { useState } from 'react';
+
 import { RowContainer } from './Containers';
 
 export default function SearchBar() {

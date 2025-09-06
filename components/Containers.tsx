@@ -1,23 +1,23 @@
-import { Pressable, StyleSheet, ViewProps, TextProps } from "react-native";
-import { Link, Href, LinkProps } from "expo-router";
+import { Pressable, StyleSheet, ViewProps } from "react-native";
+import { Link, LinkProps } from "expo-router";
 
 import { View } from "./Themed";
 
 export function Container(props: ViewProps) {
 	return (
-		<View style={[styles.basic, props.style]}>{props.children}</View>
+		<View {...props} style={[styles.basic, props.style]}>{props.children}</View>
 	);
 }
 
 export function RowContainer(props: ViewProps) {
 	return (
-		<View style={[styles.row, props.style]}>{props.children}</View>
+		<View {...props} style={[styles.row, props.style]}>{props.children}</View>
 	);
 }
 
 export function LinkedContainer(props: LinkProps) {
 	return (
-		<Link href={props.href} style={[styles.linked, props.style]}>
+		<Link {...props} href={props.href} style={[styles.linked, props.style]}>
 			<Pressable>{props.children}</Pressable>
 		</Link>
 	);
