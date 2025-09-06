@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 
-import { StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 
 import { Image, ImageBackground } from 'expo-image';
 
-import { Text, View } from '@/components/Themed';
 
 import { FormInput } from '@/components/Input';
 import AuthButton from '@/components/AuthButton';
@@ -21,7 +20,7 @@ export default function LoginScreen() {
 
     const [authenticated, set_authenticated] = useState<boolean>(false);
 
-    const on_login = async () => {
+    const on_signin = async () => {
         const code = await request_login(email, password);
 
         if (code){
@@ -46,7 +45,7 @@ export default function LoginScreen() {
             <FormInput name={"email"} content={email} on_change={set_email}/>
             <FormInput name={"password"} content={password} on_change={set_password} secured/>
 
-            <AuthButton name={"login"} on_press={on_login} style={styles.button} />
+            <AuthButton name={"signin"} on_press={on_signin} style={styles.button} />
 		</View>
 	);
 }

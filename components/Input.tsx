@@ -17,6 +17,14 @@ export function FormInput ( { name, content, on_change, style, secured }: FormIn
     </View>);
 }
 
+export function SmallFormInput ( { name, content, on_change, style, secured }: FormInputProps ) {
+    return (<View style={[style, styles.container, styles.half_container]}>
+        <Text style={styles.label}> { name } </Text>
+
+        <TextInput style={styles.input} value={content} onChangeText={on_change} secureTextEntry={secured}/>
+    </View>);
+}
+
 
 const styles = StyleSheet.create({
     container: {
@@ -30,6 +38,10 @@ const styles = StyleSheet.create({
         marginBottom: 16,
 
         backgroundColor: "#00000040"
+    },
+
+    half_container: {
+        width: "39%",
     },
 
     label: {
@@ -49,5 +61,5 @@ const styles = StyleSheet.create({
 
         marginLeft: 12,
         marginTop: 12,
-    }
+    },
 });

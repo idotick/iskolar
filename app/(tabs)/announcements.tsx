@@ -1,13 +1,14 @@
 import { useState } from 'react';
 
+import { StyleSheet, ViewProps, Text, View } from 'react-native';
+
 import Entypo from '@expo/vector-icons/Entypo';
-import { StyleSheet, ViewProps } from 'react-native';
 
 
-import RootView from '@/components/RootView';
+
+import RootView from '@/components/Page';
 import SearchBar from '@/components/SearchBar';
 import AnnouncementOverview from '@/components/AnnouncementOverview';
-import { Text, View } from '@/components/Themed';
 import { RowContainer } from '@/components/Containers';
 
 export default function AnnouncementScreen() {

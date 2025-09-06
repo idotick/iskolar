@@ -1,13 +1,14 @@
-import Entypo from "@expo/vector-icons/Entypo";
-import { Pressable, StyleSheet } from 'react-native';
 
-import RootView from '@/components/RootView';
-import { Text, View } from '@/components/Themed';
+import { Text, View, Pressable, StyleSheet } from 'react-native';
+
+import Entypo from "@expo/vector-icons/Entypo";
+
+import Page from '@/components/Page';
 import { Container, RowContainer, LinkedContainer } from '@/components/Containers'
 
 export default function HomeScreen() {
 	return (
-		<RootView spaced>
+		<Page>
 			<RowContainer>
 				<View style={styles.pictureContainer}>
 					<Entypo name="user" size={55} color={"#fff"}></Entypo>
@@ -50,7 +51,7 @@ export default function HomeScreen() {
 					<Text style={{ fontSize: 11.9, textAlign: 'center' }}>CAFETERIA BALANCE</Text>
 				</Container>
 			</RowContainer>
-		</RootView>
+		</Page>
 	);
 }
 

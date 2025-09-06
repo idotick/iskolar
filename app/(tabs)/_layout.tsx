@@ -1,14 +1,10 @@
 import React from 'react';
-import { Pressable } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Entypo from "@expo/vector-icons/Entypo";
 import { Link, Tabs } from 'expo-router';
 
-import Colors from '@/constants/Colors';
-import { useColorScheme } from '@/components/useColorScheme';
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
-import { Text, View } from '@/components/Themed';
 import AuthProvider from '@/contexts/AuthContext';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -20,14 +16,11 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout() {
-	const colorScheme = useColorScheme();
-
 	return (
 		<AuthProvider>
 			<Tabs
 				screenOptions={{
-					tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-					headerShown: useClientOnlyValue(false, true),
+					headerShown: false
 				}}>
 				<Tabs.Screen
 					name="signup"

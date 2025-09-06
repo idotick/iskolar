@@ -1,8 +1,10 @@
-import LoginPage from "@/app/login";
-import { validate_session } from "@/handlers/session";
-import SplashScreen from "@/screens/SplashScreen";
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
+
+import { Redirect } from "expo-router";
+
+import { validate_session } from "@/handlers/session";
+import SplashScreen from "@/screens/SplashScreen";
 
 export default function AuthProvider( { children }: any){
     const [ authenticated, set_authenticated ] = useState<boolean>(false);
@@ -25,7 +27,7 @@ export default function AuthProvider( { children }: any){
     }
 
     if (!authenticated){
-        return <LoginPage/>
+        return <Redirect href={"/(auth)/signup"}/>
     }
 
     return (<View style={styles.container}>

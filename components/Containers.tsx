@@ -1,8 +1,6 @@
-import { TextInput, Pressable, StyleSheet, ViewProps, TextInputProps, StyleProp, ViewStyle, TextStyle } from "react-native";
+import { Text, View, TextInput, Pressable, StyleSheet, ViewProps, TextInputProps, StyleProp, ViewStyle, TextStyle } from "react-native";
 
 import { Href, Link, LinkProps } from "expo-router";
-
-import { Text, View } from "./Themed";
 
 export function Container(props: ViewProps) {
 	return (
