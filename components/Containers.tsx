@@ -1,7 +1,11 @@
-import { Pressable, StyleSheet, ViewProps } from "react-native";
-import { Link, LinkProps } from "expo-router";
+import {
+	TextInput, Pressable, StyleSheet,
+	ViewProps, TextInputProps,
+	StyleProp, ViewStyle, TextStyle
+} from "react-native";
+import { Href, Link, LinkProps } from "expo-router";
 
-import { View } from "./Themed";
+import { Text, View } from "./Themed";
 
 export function Container(props: ViewProps) {
 	return (
@@ -23,6 +27,34 @@ export function LinkedContainer(props: LinkProps) {
 	);
 }
 
+type TextFieldProps = {
+	label: string,
+	style?: StyleProp<ViewStyle>,
+	options: TextInputProps,
+}
+
+export function TextField({label, style, options}: TextFieldProps) {
+	return (
+		<Container style={[styles.input, style]}>
+			<Text style={{ fontSize: 8.5 }}>{label}</Text>
+			<TextInput {...options} style={{ fontSize: 12 }}/>
+		</Container>
+	);
+}
+
+type ButtonProps = {
+	label: string,
+	href: Href,
+	style?: StyleProp<TextStyle>,
+}
+
+export function Button({label, href, style}: ButtonProps) {
+	return (
+		<LinkedContainer href={href} style={[styles.button, style]}>
+			<Text style={{ fontSize: 30 }}>{label}</Text>
+		</LinkedContainer>
+	);
+}
 
 const styles = StyleSheet.create({
 	basic: {
@@ -45,4 +77,13 @@ const styles = StyleSheet.create({
 		padding: 25,
 		marginTop: 20,
 	},
+	input: {
+		backgroundColor: 'rgba(255, 255, 255, 0.3)',
+		color: '#fff6f2',
+	},
+	button: {
+		textAlign: 'center',
+		backgroundColor: '#1b1729',
+		color: '#fff6f2',
+	}
 });

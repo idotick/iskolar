@@ -1,11 +1,11 @@
 import { Dimensions, StyleSheet, TextInput } from 'react-native';
 import { Image, ImageBackground } from 'expo-image';
 import { Link } from 'expo-router';
-import { useActionState, useState } from 'react';
+import { useState } from 'react';
 
 import RootView from '@/components/RootView';
 import { Text, View } from '@/components/Themed';
-import { Container, LinkedContainer } from '@/components/Containers';
+import { Container, TextField, LinkedContainer, Button } from '@/components/Containers';
 
 const backgroundImage = require('@/assets/images/background.jpg');
 const titleText = require('@/assets/images/iskolar-text.svg');
@@ -26,29 +26,31 @@ export default function LoginScreen() {
 				<Image source={titleText} style={styles.titleImage}	/>
 
 				<View style={styles.form}>
-					<Container style={styles.textField}>
-						<Text style={{ fontSize: 8.5 }}>email</Text>
-						<TextInput
-							inputMode='email'
-							onChangeText={onChangeEmail}
-							value={email}
-							style={{ fontSize: 12, color: '#fff6f2' }}
-						/>
-					</Container>
+					<TextField
+						label='email'
+						style={{ flexGrow: 0.20 }}
+						options={{
+							inputMode: 'email',
+							onChangeText: onChangeEmail,
+							value: email,
+						}}
+					/>
 
-					<Container style={styles.textField}>
-						<Text style={{ fontSize: 8.5 }}>password</Text>
-						<TextInput
-							secureTextEntry
-							onChangeText={onChangePassword}
-							value={password}
-							style={{ fontSize: 12, color: '#fff6f2' }}
-						/>
-					</Container>
+					<TextField
+						label='password'
+						style={{ flexGrow: 0.20 }}
+						options={{
+							secureTextEntry: true,
+							onChangeText: onChangePassword,
+							value: password
+						}}
+					/>
 
-					<LinkedContainer href={'/home'} style={styles.button}>
-						<Text style={{ fontSize: 30 }}>LOG IN</Text>
-					</LinkedContainer>
+					<Button
+						label='LOG IN'
+						href='/home'
+						style={{ flexGrow: 0.22 }}
+					/>
 				</View>
 				
 				<Text style={styles.signUpText}>
@@ -67,7 +69,6 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 20,
 		paddingBottom: 100,
 		justifyContent: 'space-evenly',
-		fontFamily: 'Poppins',
 	},
 	ribbon: {
 		position: 'absolute',

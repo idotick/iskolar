@@ -36,6 +36,15 @@ export default function TabLayout() {
 				}}
 			/>
 			<Tabs.Screen
+				name="signup"
+				options={{
+					title: '',
+					tabBarStyle: { display: 'none' },
+					headerShown: false,
+					href: null,
+				}}
+			/>
+			<Tabs.Screen
 				name="home"
 				options={{
 					title: '',
