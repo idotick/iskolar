@@ -4,11 +4,11 @@ import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 
 import { Image, ImageBackground } from 'expo-image';
 
-
 import { FormInput } from '@/components/Input';
 import AuthButton from '@/components/AuthButton';
 
 import { request_login, validate_session } from '@/handlers/session';
+import { Redirect } from 'expo-router';
 
 const background_image = require('@/assets/images/background.jpg');
 const title_text = require('@/assets/images/iskolar-text.png');
@@ -28,6 +28,10 @@ export default function LoginScreen() {
         }
 
         set_authenticated(true);
+    }
+
+    if (authenticated){
+        return <Redirect href="/"/>
     }
 
 	return (

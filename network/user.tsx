@@ -6,8 +6,13 @@ import { UserData } from "@/handlers/user";
 
 const route: string = "/api/v1/users";
 
-async function register_user(id: string, email: string, name: string, password: string): Promise<string | null> {
-    const url: string = http_url + route + "/registe";
+export type AuthReceipt = {
+    code: number,
+    cookie: string | null,
+};
+
+export async function register_user(id: string, email: string, name: string, password: string): Promise<AuthReceipt | null> {
+    const url: string = http_url + route + "/register";
     
     const hash: string = sha512(password);
 
@@ -30,15 +35,12 @@ async function register_user(id: string, email: string, name: string, password: 
         const json: any = await res.json();
 
         if (json.code){
-            console.log(json.code);
-            console.log("Failed to post register request?");
-
-            return null;
+            return { code: json.code, cookie: null };
         }
 
         console.log("Successfully posted register request.");
 
-        return json.cookie;
+        return { code: json.code, cookie: null };
         
     } catch (err) {
         console.log("Error while posting register request?");
@@ -49,7 +51,7 @@ async function register_user(id: string, email: string, name: string, password: 
     }
 }
 
-async function resolve_user(session: string, user_id: string | null = null): Promise<UserInfo | null> {
+export async function resolve_user(session: string, user_id: string | null = null): Promise<UserInfo | null> {
     let url: string;
 
     if (user_id == null){
@@ -88,7 +90,7 @@ async function resolve_user(session: string, user_id: string | null = null): Pro
     }
 }
 
-async function get_user_list(session: string): Promise<UserData[] | null> {
+export async function get_user_list(session: string): Promise<UserData[] | null> {
     const url: string = http_url + route + "/list" + "?" + new URLSearchParams({
             cookie: session,
             cookieless: "true"
@@ -117,5 +119,3 @@ async function get_user_list(session: string): Promise<UserData[] | null> {
     }
     
 }
-
-export { register_user, resolve_user, get_user_list };

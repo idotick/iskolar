@@ -4,6 +4,7 @@ import { sha512 } from "js-sha512";
 const route: string = "/api/v1/auth"
 
 async function login_user(email: string, password: string): Promise<any | null> {
+    
     const url = http_url + route + "/login";
 
     const hash: string = sha512(password);

@@ -8,7 +8,7 @@ import { Redirect } from "expo-router";
 
 import { login_user, logout_user, validate_user } from "@/network/auth";
 
-import { register_user, resolve_user } from "@/network/user";
+import { AuthReceipt, register_user, resolve_user } from "@/network/user";
 
 import { UserInfo } from "./user"
 
@@ -80,30 +80,36 @@ async function request_registration(id: string, name: string, email: string, pas
       return 1;
     }
   
-    const res: any = await register_user(id, email, name, password);
+    const res: AuthReceipt | null = await register_user(id, email, name, password);
 
-    if (res.code == -1){
+    if (!res){
       return -1;
     }
 
-    if (res.code == -2){
+    if (res.code == 1){
+      const session: string | null = await AsyncStorage.getItem("session");
+  
+      if (session == null){
+        const code = await logout_user("");
+  
+        if (code){
+          return -4;
+        }
+      }
+
+      return 1;
+    }
+
+    if (res.code){
       return -2;
     }
 
-    if (res.code == 2){
-      return 2;
+    if (!res.cookie){
+      return -3;
     }
 
-    if (res.code == 3){
-      return 3;
-    }
-  
-    if (res.code){
-      return res.code;
-    }
+    const cookie: string | null = res.cookie;
 
-    const cookie: string = res.cookie;
-  
     AsyncStorage.setItem("session", cookie);
   
     return 0;

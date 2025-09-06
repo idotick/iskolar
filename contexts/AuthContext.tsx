@@ -27,7 +27,7 @@ export default function AuthProvider( { children }: any){
     }
 
     if (!authenticated){
-        return <Redirect href={"/(auth)/signup"}/>
+        return <Redirect href={"/(auth)/signin"}/>
     }
 
     return (<View style={styles.container}>

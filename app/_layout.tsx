@@ -2,13 +2,13 @@ import { useEffect } from 'react';
 
 import { useColorScheme } from 'react-native';
 
+import { DarkTheme, DefaultTheme} from '@react-navigation/native';
+
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme} from '@react-navigation/native';
-
 
 
 

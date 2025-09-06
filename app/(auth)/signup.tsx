@@ -7,10 +7,10 @@ import { ImageBackground } from 'expo-image';
 import { FormInput, SmallFormInput } from '@/components/Input';
 import AuthButton from '@/components/AuthButton';
 
-import { request_login, request_registration, validate_session } from '@/handlers/session';
+import { request_login, request_registration, } from '@/handlers/session';
+import { Redirect } from 'expo-router';
 
 const background_image = require('@/assets/images/background.jpg');
-
 
 export default function LoginScreen() {
     const [fname, set_fname ] = useState<string>('');
@@ -37,6 +37,10 @@ export default function LoginScreen() {
         }
 
         set_authenticated(true);
+    }
+
+    if (authenticated){
+        return <Redirect href="/"/>
     }
 
 	return (
