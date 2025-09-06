@@ -1,110 +1,67 @@
-import { Dimensions, StyleSheet, TextInput } from 'react-native';
-import { Image, ImageBackground } from 'expo-image';
-import { Link } from 'expo-router';
-import { useState } from 'react';
+import Entypo from "@expo/vector-icons/Entypo";
+import { Pressable, StyleSheet } from 'react-native';
 
 import RootView from '@/components/RootView';
 import { Text, View } from '@/components/Themed';
-import { Container, TextField, LinkedContainer, Button } from '@/components/Containers';
+import { Container, RowContainer, LinkedContainer } from '@/components/Containers'
 
-const backgroundImage = require('@/assets/images/background.jpg');
-const titleText = require('@/assets/images/iskolar-text.svg');
-const ribbon = require('@/assets/images/ribbon.svg');
-
-export default function LoginScreen() {
-	const [email, onChangeEmail] = useState<string>('');
-	const [password, onChangePassword] = useState<string>('');
-
+export default function HomeScreen() {
 	return (
-		<RootView>
-			<ImageBackground
-				source={backgroundImage}
-				style={styles.container}
-				imageStyle={{ opacity: 0.7 }}
-			>
-				<Image source={ribbon} style={styles.ribbon} />
-				<Image source={titleText} style={styles.titleImage}	/>
-
-				<View style={styles.form}>
-					<TextField
-						label='email'
-						style={{ flexGrow: 0.20 }}
-						options={{
-							inputMode: 'email',
-							onChangeText: onChangeEmail,
-							value: email,
-						}}
-					/>
-
-					<TextField
-						label='password'
-						style={{ flexGrow: 0.20 }}
-						options={{
-							secureTextEntry: true,
-							onChangeText: onChangePassword,
-							value: password
-						}}
-					/>
-
-					<Button
-						label='LOG IN'
-						href='/home'
-						style={{ flexGrow: 0.22 }}
-					/>
+		<RootView spaced>
+			<RowContainer>
+				<View style={styles.pictureContainer}>
+					<Entypo name="user" size={55} color={"#fff"}></Entypo>
 				</View>
-				
-				<Text style={styles.signUpText}>
-					don’t have an account? 
-					<Link href='/+not-found' style={{ fontWeight: 'bold' }}> sign up</Link>
-				</Text>
-			</ImageBackground>
+				<Container>
+					<Text style={{ fontSize: 12 }}>John Ivan B. Floirendo</Text>
+					<Text style={{ fontSize: 9 }}>Grade 11 - Maimai</Text>
+					<Text style={{ fontSize: 9 }}>Rhythm Gaming Block 2</Text>
+					<Text style={{ fontSize: 9 }}>WuWa Elective</Text>
+				</Container>
+			</RowContainer>
+			
+			<Container style={{ flexGrow: 0.4 }}>
+				<Text style={{ fontSize: 9 }}>CLASS SCHEDULE</Text>
+				<Text style={{ fontSize: 14.5 }}>ONGOING CLASS: CHEMISTRY 2</Text>
+				<RowContainer>
+					<Text style={{ fontSize: 7 }}>NEXT CLASS SOCIAL SCIENCE 5</Text>
+					<Text style={{ fontSize: 7 }}>12:30 - 14:20</Text>
+				</RowContainer>
+			</Container>
+
+			<Container style={{ flexGrow: 2, flexShrink: 1 }}>
+				<Text style={{ fontSize: 14.5 }}>ANNOUNCEMENTS</Text>
+				<LinkedContainer href='/announcements' />
+			</Container>
+			
+
+			<RowContainer style={{ flex: 2 }}>
+				<Container>
+					<RowContainer>
+						<Text style={{ fontSize: 14.5 }}>MENU</Text>
+						<Text style={{ fontSize: 14.5 }}>DINNER</Text>
+					</RowContainer>
+					
+					<LinkedContainer href='/+not-found' />
+				</Container>
+
+				<Container>
+					<Text></Text>
+					<Text style={{ fontSize: 11.9, textAlign: 'center' }}>CAFETERIA BALANCE</Text>
+				</Container>
+			</RowContainer>
 		</RootView>
 	);
 }
 
 const styles = StyleSheet.create({
-	container: {
-		width: '100%',
-		height: '100%',
-		paddingHorizontal: 20,
-		paddingBottom: 100,
-		justifyContent: 'space-evenly',
-	},
-	ribbon: {
-		position: 'absolute',
-		width: Dimensions.get('window').width,
-		height: Dimensions.get('window').height * 1.35,
-		top: -200,
-		opacity: 0.4
-	},
-	titleImage: {
-		flexGrow: 5,
-		position: 'relative',
-		width: 1900,
-		height: 150,
-		left: '-225%',
-		top: -50,
-	},
-	form: {
-		backgroundColor: 'transparent',
-		height: '50%',
-		marginTop: -125,
-		paddingVertical: 10,
-		gap: 10,
-	},
-	textField: {
-		flexGrow: 0.20,
-		backgroundColor: 'rgba(255, 255, 255, 0.3)',
-	},
-	button: {
-		flexGrow: 0.22,
-		textAlign: 'center',
-		backgroundColor: '#1b1729',
-	},
-	signUpText: {
-		textAlign: 'center',
-		marginTop: 25,
-		fontSize: 12,
-		fontWeight: 'normal',
-	},
-})
+	pictureContainer: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		height: 85,
+		backgroundColor: '#ffa34a',
+		borderRadius: 100,
+		padding: 10,
+	}
+});

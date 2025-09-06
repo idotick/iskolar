@@ -1,6 +1,8 @@
+import { useState } from 'react';
+
 import Entypo from '@expo/vector-icons/Entypo';
 import { StyleSheet, ViewProps } from 'react-native';
-import { useState } from 'react';
+
 
 import RootView from '@/components/RootView';
 import SearchBar from '@/components/SearchBar';

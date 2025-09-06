@@ -1,27 +1,24 @@
-import {
-	TextInput, Pressable, StyleSheet,
-	ViewProps, TextInputProps,
-	StyleProp, ViewStyle, TextStyle
-} from "react-native";
+import { TextInput, Pressable, StyleSheet, ViewProps, TextInputProps, StyleProp, ViewStyle, TextStyle } from "react-native";
+
 import { Href, Link, LinkProps } from "expo-router";
 
 import { Text, View } from "./Themed";
 
 export function Container(props: ViewProps) {
 	return (
-		<View {...props} style={[styles.basic, props.style]}>{props.children}</View>
+		<View {...props} style={[styles.basic, props.style]}> { props.children } </View>
 	);
 }
 
 export function RowContainer(props: ViewProps) {
 	return (
-		<View {...props} style={[styles.row, props.style]}>{props.children}</View>
+		<View {...props} style={[styles.row, props.style]}> { props.children } </View>
 	);
 }
 
 export function LinkedContainer(props: LinkProps) {
 	return (
-		<Link {...props} href={props.href} style={[styles.linked, props.style]}>
+		<Link {...props} href={props.href} style={ [ styles.linked, props.style ] }>
 			<Pressable>{props.children}</Pressable>
 		</Link>
 	);
