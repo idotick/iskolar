@@ -4,11 +4,15 @@ import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 
 import { Image, ImageBackground } from 'expo-image';
 
-import { FormInput } from '@/components/Input';
-import AuthButton from '@/components/AuthButton';
+import { FormInput } from '@/components/form/Input';
+import AuthButton from '@/components/form/AuthButton';
 
 import { request_login, validate_session } from '@/handlers/session';
-import { Redirect } from 'expo-router';
+import { Link, Redirect } from 'expo-router';
+import { Page } from '@/components/Page';
+import PageContainer from '@/components/containers/PageContainer';
+import AuthAlert from '@/components/alerts/AuthAlert';
+import { extract_domain, validate_email } from '../../util/helpers';
 
 const background_image = require('@/assets/images/background.jpg');
 const title_text = require('@/assets/images/iskolar-text.png');
@@ -20,8 +24,30 @@ export default function LoginScreen() {
 
     const [authenticated, set_authenticated] = useState<boolean>(false);
 
+    const [alert, set_alert] = useState<string>("");
+
+    const stop_alert = () => {
+        set_alert("");
+    }
+
+    const start_alert = (message: string) => {
+        set_alert(message);
+
+        setTimeout(stop_alert, 2000);
+    }
+
     const on_signin = async () => {
+        if (!validate_email(email)){
+            start_alert("Invalid email");
+            return;
+        }
+
         const code = await request_login(email, password);
+
+        if (code == -1){
+            start_alert("Unable to connect to network.");
+            return;
+        }
 
         if (code){
             return;
@@ -35,7 +61,7 @@ export default function LoginScreen() {
     }
 
 	return (
-		<View style={styles.container}>
+		<PageContainer style={styles.container}>
 			<ImageBackground
 				source={background_image}
 				style={styles.background}
@@ -49,14 +75,23 @@ export default function LoginScreen() {
             <FormInput name={"email"} content={email} on_change={set_email}/>
             <FormInput name={"password"} content={password} on_change={set_password} secured/>
 
-            <AuthButton name={"signin"} on_press={on_signin} style={styles.button} />
-		</View>
+            <AuthAlert style={styles.alert} message={alert}/>
+
+            <AuthButton name={"sign in"} on_press={on_signin} style={styles.button} />
+
+            <Link href="/(auth)/signup" style={styles.link}>
+                <Text style={styles.link_text}> Don't have an account? </Text>
+            </Link>
+
+            
+		</PageContainer>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1
+		flex: 1,
+        alignItems: "center"
 	},
 
     background: {
@@ -67,8 +102,6 @@ const styles = StyleSheet.create({
 
 		paddingHorizontal: 20,
 		paddingBottom: 100,
-
-		justifyContent: 'space-evenly',
     },
 
 	ribbon: {
@@ -93,8 +126,22 @@ const styles = StyleSheet.create({
     },
 
     button: {
-        
-        marginVertical: 64,
-    }
+        marginTop: 32,
+        marginBottom: 64,
+    },
 
+    link: {
+        alignItems: "center"
+    },
+
+    link_text: {
+        textAlign: "center",
+        fontWeight: "bold",
+
+        color: "white",
+    },
+
+    alert: {
+
+    }
 })

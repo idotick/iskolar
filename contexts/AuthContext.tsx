@@ -12,9 +12,9 @@ export default function AuthProvider( { children }: any){
     const [ loaded, set_loaded ] = useState<boolean>(false);
 
     async function authenticate(){
-        const validated: boolean = await validate_session();
+        const code: number = await validate_session();
 
-        set_authenticated(validated);
+        set_authenticated(code == 0);
         set_loaded(true);
     }
 

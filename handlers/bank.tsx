@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { add_balance } from "@/network/bank";
+import { add_credit } from "@/network/bank";
 
 
 async function request_balance_add(uuid: string, amount: number): Promise<number>{
@@ -14,7 +14,7 @@ async function request_balance_add(uuid: string, amount: number): Promise<number
       return -2;
     }
   
-    const code = await add_balance(session, uuid, amount);
+    const code = await add_credit(session, uuid, amount);
   
     if (code) {
         console.log("Failed to request balance addition?");

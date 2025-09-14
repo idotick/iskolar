@@ -1,68 +1,51 @@
 
-import { Text, View, Pressable, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 
-import Entypo from "@expo/vector-icons/Entypo";
+import { Link } from 'expo-router';
 
-import Page from '@/components/Page';
-import { Container, RowContainer, LinkedContainer } from '@/components/Containers'
+import { Page, } from '@/components/Page';
+
+import PageContainer from '@/components/containers/PageContainer';
+import AnnouncementsPreview from '@/components/previews/AnnouncementPreview';
+import SchedulePreview from '@/components/previews/SchedulePreview';
+import ProfilePreview from '@/components/previews/ProfilePreview';
+
 
 export default function HomeScreen() {
 	return (
-		<Page>
-			<RowContainer>
-				<View style={styles.pictureContainer}>
-					<Entypo name="user" size={55} color={"#fff"}></Entypo>
-				</View>
-				<Container>
-					<Text style={{ fontSize: 12 }}>John Ivan B. Floirendo</Text>
-					<Text style={{ fontSize: 9 }}>Grade 11 - Maimai</Text>
-					<Text style={{ fontSize: 9 }}>Rhythm Gaming Block 2</Text>
-					<Text style={{ fontSize: 9 }}>WuWa Elective</Text>
-				</Container>
-			</RowContainer>
-			
-			<Container style={{ flexGrow: 0.4 }}>
-				<Text style={{ fontSize: 9 }}>CLASS SCHEDULE</Text>
-				<Text style={{ fontSize: 14.5 }}>ONGOING CLASS: CHEMISTRY 2</Text>
-				<RowContainer>
-					<Text style={{ fontSize: 7 }}>NEXT CLASS SOCIAL SCIENCE 5</Text>
-					<Text style={{ fontSize: 7 }}>12:30 - 14:20</Text>
-				</RowContainer>
-			</Container>
+		<PageContainer>
 
-			<Container style={{ flexGrow: 2, flexShrink: 1 }}>
-				<Text style={{ fontSize: 14.5 }}>ANNOUNCEMENTS</Text>
-				<LinkedContainer href='/announcements' />
-			</Container>
-			
+			<Page>
 
-			<RowContainer style={{ flex: 2 }}>
-				<Container>
-					<RowContainer>
-						<Text style={{ fontSize: 14.5 }}>MENU</Text>
-						<Text style={{ fontSize: 14.5 }}>DINNER</Text>
-					</RowContainer>
-					
-					<LinkedContainer href='/+not-found' />
-				</Container>
+				<ProfilePreview/>
 
-				<Container>
-					<Text></Text>
-					<Text style={{ fontSize: 11.9, textAlign: 'center' }}>CAFETERIA BALANCE</Text>
-				</Container>
-			</RowContainer>
-		</Page>
+				<SchedulePreview style={styles.schedule}/>
+				
+				<AnnouncementsPreview style={styles.announcements} data={["Welcome to Pisay!", "Gym has re-opened after 2 weeks."]}/>
+
+			</Page>
+
+		</PageContainer>
 	);
 }
 
 const styles = StyleSheet.create({
-	pictureContainer: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		height: 85,
-		backgroundColor: '#ffa34a',
-		borderRadius: 100,
-		padding: 10,
-	}
+	background: {
+        position: "absolute",
+
+        width: '100%',
+		height: '100%',
+    },
+
+	schedule: {
+		height: 80,
+		marginTop: 24,
+
+		marginVertical: 12,
+	},
+
+	announcements: {
+		height: 184,
+		marginVertical: 16,
+	},
 });

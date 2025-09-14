@@ -23,18 +23,21 @@ const styles = StyleSheet.create({
 
         borderRadius: 24,
 
+        justifyContent: "center",
+        alignItems: "center",
+
         backgroundColor: "#030307ff"
     },
 
     label: {
-        flex: 1,
-
-        textAlign: "center",
-        textAlignVertical: "center",
-
+        position: "absolute",
         fontSize: 24,
         fontWeight: "bold",
 
         color: "white"
+    },
+
+    progress: {
+        position: "absolute",
     }
 });

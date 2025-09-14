@@ -6,79 +6,58 @@ import { ActivityIndicator, View, Image} from "react-native";
 
 import { Redirect } from "expo-router";
 
-import { login_user, logout_user, validate_user } from "@/network/auth";
+import { login_user, LoginResponse, logout_user, LogoutResponse, validate_user, ValidateResponse } from "@/network/auth";
 
 import { AuthReceipt, register_user, resolve_user } from "@/network/user";
 
 import { UserInfo } from "./user"
 
-async function validate_session(): Promise<boolean> {
+
+async function validate_session(): Promise<number> {
   const session: string | null = await AsyncStorage.getItem('session');
 
   if (session == null){
-    return false;
+    return 1;
   }
 
-  const res: number = await validate_user(session);
+  const res: ValidateResponse = await validate_user(session);
 
-  if (res == -2){
-    return true;
-  }
-
-  if (res){
+  if (res.code){
     AsyncStorage.removeItem('session');
 
-    return false;
+    return 1;
   }
 
-  return true;
+  return 0;
 }
 
 async function request_login(email: string, password: string): Promise<number>{
     const res = await login_user(email, password);
-  
-    if (res.code == -1){
-      const session: string | null = await AsyncStorage.getItem("session");
-  
-      if (session == null){
-        const code = await logout_user("");
-  
-        if (code){
-          return -3;
-        }
 
-        return -2;
+    if (res.code == 1){  
+      const logout_res: LogoutResponse = await logout_user("");
+  
+      if (logout_res.code){
+        return -3;
       }
 
-      return 0;
+      return request_login(email, password);
     }
     
-    if (res.code == -2){
-        return -1;
-    }
-
-    if (res.code == 1){
-        return 1;
-    }
-
-    if (res.code == 2){
-        return 2;
-    }
-
     if (res.code){
-        return -1;
+      return res.code;
     }
 
+    if (!res.cookie){
+      return -4;
+    }
   
     AsyncStorage.setItem("session", res.cookie);
   
     return 0;
 }
 
-async function request_registration(id: string, name: string, email: string, password: string, password_confirm: string): Promise<number>{
-    if (password != password_confirm){
-      return 1;
-    }
+async function request_registration(id: string, name: string, email: string, password: string): Promise<number>{
   
     const res: AuthReceipt | null = await register_user(id, email, name, password);
 
@@ -87,17 +66,13 @@ async function request_registration(id: string, name: string, email: string, pas
     }
 
     if (res.code == 1){
-      const session: string | null = await AsyncStorage.getItem("session");
+      const code = await logout_user("");
   
-      if (session == null){
-        const code = await logout_user("");
-  
-        if (code){
-          return -4;
-        }
+      if (code){
+        return -3;
       }
 
-      return 1;
+      return request_registration(id, name, email, password);
     }
 
     if (res.code){
@@ -105,7 +80,7 @@ async function request_registration(id: string, name: string, email: string, pas
     }
 
     if (!res.cookie){
-      return -3;
+      return -4;
     }
 
     const cookie: string | null = res.cookie;
@@ -115,24 +90,16 @@ async function request_registration(id: string, name: string, email: string, pas
     return 0;
 }
 
-async function request_logout(): Promise<boolean>{
+async function request_logout(): Promise<number>{
     const session: string | null = await AsyncStorage.getItem("session");
   
     if (session == null){
-      return true;
+      return -2;
     }
   
-    const code: number = await logout_user(session);
+    const res: LogoutResponse = await logout_user(session);
     
-    if (code == 1){
-      return true;
-    }
-
-    if (code){
-      return false;
-    }
-  
-    return true;
+    return res.code;
 }
 
 async function request_resolve(): Promise<UserInfo | null> {

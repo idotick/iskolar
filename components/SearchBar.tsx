@@ -2,7 +2,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { TextInput, StyleSheet } from 'react-native';
 import { useState } from 'react';
 
-import { RowContainer } from './Containers';
+import RowContainer from './containers/RowContainer';
 
 export default function SearchBar() {
 	const [text, onChangeText] = useState<string>('Search school announcements');
@@ -10,7 +10,7 @@ export default function SearchBar() {
 	return (
 		<RowContainer style={styles.searchBar}>
 			<TextInput style={styles.text} onChangeText={onChangeText} value={text} />
-			<Ionicons name='search-sharp' size={10} color='#151932' />
+			<Ionicons name='search-sharp' size={10} color='#151932'/>
 		</RowContainer>
 	);
 }

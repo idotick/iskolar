@@ -2,7 +2,16 @@ import { http_url } from "./defaults"
 
 const route: string = "/api/v1/bank"
 
-async function add_balance(session: string, uuid: string, amount: number){
+export type CreditResponse = {
+    code: -1 | 0 | 1
+};
+
+export type BalanceResponse = {
+    code: -1 | 0 | 1,
+    balance?: number
+};  
+
+export async function add_credit(session: string, uuid: string, amount: number): Promise<CreditResponse> {
     const url = http_url + route + "/credit?" + new URLSearchParams({
         cookie: session,
         cookieless: "true"
@@ -22,22 +31,32 @@ async function add_balance(session: string, uuid: string, amount: number){
 
         const json = await res.json();
 
-        if (json.code) {
-            console.log("Failed to request balance credit from server?");
-            return -1;
-        }
-
-        console.log("Successfully added credit to balance.");
-
-        return 0;
+        return { code: json.code };
     }
 
     catch (err) {
-        console.log("Error while adding to balance?")
-        console.log(err);
-
-        return -2;
+        return { code: -1 };
     }
 }
 
-export { add_balance }
+export async function get_balance(session: string): Promise<BalanceResponse> {
+    const url: string = http_url + route + "/balance" + "?" + new URLSearchParams({
+        cookie: session,
+        cookieless: "true"
+    }).toString();
+
+    try {
+        const res: Response = await fetch(url);
+
+        const json: any = await res.json();
+
+        if (json.code){
+            return { code: json.code };
+        }
+
+        return { code: json.code, balance: json.balance };
+
+    } catch (err){
+        return { code: -1 };
+    }
+}

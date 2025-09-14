@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet } from 'react-native';
 
-import { RowContainer } from '@/components/Containers';
+import RowContainer from './containers/RowContainer';
 
 type Props = {
 	recent?: boolean,

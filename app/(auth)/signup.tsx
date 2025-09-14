@@ -1,14 +1,15 @@
 import { useState } from 'react';
 
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 
 import { ImageBackground } from 'expo-image';
 
-import { FormInput, SmallFormInput } from '@/components/Input';
-import AuthButton from '@/components/AuthButton';
+import { FormInput, SmallFormInput } from '@/components/form/Input';
+import AuthButton from '@/components/form/AuthButton';
 
 import { request_login, request_registration, } from '@/handlers/session';
-import { Redirect } from 'expo-router';
+import { Link, Redirect } from 'expo-router';
+import PageContainer from '@/components/containers/PageContainer';
 
 const background_image = require('@/assets/images/background.jpg');
 
@@ -19,7 +20,6 @@ export default function LoginScreen() {
 
 	const [email, set_email ] = useState<string>('');
 	
-    const [batch, set_batch ] = useState<string>('');
     const [user_id, set_user_id ] = useState<string>('');
 
     const [password, set_password ] = useState<string>('');
@@ -28,9 +28,13 @@ export default function LoginScreen() {
     const [authenticated, set_authenticated] = useState<boolean>(false);
 
     const on_signup = async () => {
+        if (password != confirmed_password){
+            return;
+        }
+
         const name: string = fname + " " + mname + ". " + lname;
 
-        const code = await request_registration(user_id, name, email, password, password);
+        const code = await request_registration(user_id, name, email, password);
 
         if (code){
             return;
@@ -44,7 +48,7 @@ export default function LoginScreen() {
     }
 
 	return (
-		<View style={styles.container}>
+		<PageContainer style={styles.container}>
 			<ImageBackground
 				source={background_image}
 				style={styles.background}
@@ -61,25 +65,24 @@ export default function LoginScreen() {
 
                 <FormInput name={"email"} content={email} on_change={set_email}/>
 
-                <View style={{alignSelf: "center", flexDirection: "row"}}>
-                    <SmallFormInput name={"batch"} content={batch} on_change={set_batch} style={{marginRight: "1%"}}/>
-                    <SmallFormInput name={"id"} content={user_id} on_change={set_user_id} style={{marginLeft: "1%"}}/>
-                </View>
-
                 <FormInput name={"password"} content={password} on_change={set_password} secured/>
                 <FormInput name={"confirm_password"} content={confirmed_password} on_change={set_confirmed_password} secured/>
 
-                <AuthButton name={"signup"} on_press={on_signup} style={styles.button} />
+                <AuthButton name={"sign up"} on_press={on_signup} style={styles.button} />
+
+                <Link href="/(auth)/signin" style={styles.link}>
+                    <Text style={styles.link_text}> Already have an account? <Text style={styles.highlighted_link_text}> Sign up. </Text></Text>
+                </Link>
             </View>
 
-            
-		</View>
+		</PageContainer>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1
+		flex: 1,
+        alignItems: "center",
 	},
 
     background: {
@@ -122,6 +125,24 @@ const styles = StyleSheet.create({
     button: {
         
         marginVertical: 64,
+    },
+
+    link: {
+        alignItems: "center"
+    },
+
+    link_text: {
+        textAlign: "center",
+        fontWeight: "bold",
+
+        color: "white",
+    },
+
+    highlighted_link_text: {
+        textAlign: "center",
+        fontWeight: "bold",
+
+        color: "white",
     }
 
 })
