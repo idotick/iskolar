@@ -1,15 +1,15 @@
 import { Text, View, StyleSheet } from 'react-native';
 
-import RowContainer from './containers/RowContainer';
+import RowContainer from '@/components/containers/RowContainer';
 
-type Props = {
-	recent?: boolean,
-	date: Date,
-	title: string,
-	overview: string,
+export type AnnouncementData = {
+	recent?: boolean
+	date: Date
+	title: string
+	overview: string
 }
 
-export default function AnnouncementOverview({ recent, date, title, overview }: Props) {
+export default function AnnouncementOverview({ recent, date, title, overview }: AnnouncementData) {
 	const fontSize = recent ? 20 : 16;
 	const width = recent ? 80 : 65;
 
@@ -39,24 +39,37 @@ export default function AnnouncementOverview({ recent, date, title, overview }: 
 
 const styles = StyleSheet.create({
 	main: {
-		backgroundColor: 'tranparent',
 		justifyContent: 'flex-start',
+
+		marginTop: 20,
+		marginBottom: 15,
+
+		backgroundColor: 'tranparent',
 	},
 	timeContainer: {
-		backgroundColor: 'transparent',
 		justifyContent: 'center',
-		borderRightColor: '#fff6f2',
-		borderRightWidth: 2,
+		
 		height: 70,
+
+		marginRight: 20,
+
+		borderRightWidth: 2,
+		borderRightColor: '#fff6f2',
+
+		backgroundColor: 'transparent',
 	},
 	container: {
-		backgroundColor: 'transparent',
 		justifyContent: 'center',
+
 		width: 200,
+
+		backgroundColor: 'transparent',
 	},
 	text: {
 		backgroundColor: 'transparent',
+
 		textAlign: 'left',
+
 		color: '#fff6f2',
 	}
 })

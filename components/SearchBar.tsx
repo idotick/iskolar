@@ -10,26 +10,30 @@ export default function SearchBar() {
 	return (
 		<RowContainer style={styles.searchBar}>
 			<TextInput style={styles.text} onChangeText={onChangeText} value={text} />
-			<Ionicons name='search-sharp' size={10} color='#151932'/>
+			<Ionicons name='search-sharp' size={10} color='white' />
 		</RowContainer>
 	);
 }
 
 const styles = StyleSheet.create({
 	searchBar: {
-		backgroundColor: '#ffd9b4',
+		alignItems: 'center',
+		
+		marginTop: 10,
 		paddingLeft: 10,
 		paddingRight: 10,
+
+		borderWidth: 1,
 		borderRadius: 17,
-		marginTop: 10,
-		alignItems:'center'
+		borderColor: "white",
+
+		backgroundColor: 'transparent',
 	},
 	text: {
+		width: '95%',
+
 		fontSize: 7,
-		color: '#151932',
-		fontFamily: 'Poppins',
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		width: 125,
-	}
+		
+		color: 'white',
+	},
 })
