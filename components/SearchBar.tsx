@@ -4,8 +4,8 @@ import { useState } from 'react';
 
 import RowContainer from './containers/RowContainer';
 
-export default function SearchBar() {
-	const [text, onChangeText] = useState<string>('Search school announcements');
+export default function SearchBar({ placeholder='' } : { placeholder? : string}) {
+	const [text, onChangeText] = useState<string>(placeholder);
 
 	return (
 		<RowContainer style={styles.searchBar}>
