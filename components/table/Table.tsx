@@ -1,6 +1,5 @@
-import { View, ViewProps, StyleSheet, Text, StyleProp, TextStyle } from "react-native";
+import { View, ViewProps, StyleSheet, Text, StyleProp, TextStyle, ScrollView } from "react-native";
 
-import Container from "../containers/Container";
 import { ClassData, TeacherData } from "./types";
 
 type Data = ClassData | TeacherData;
@@ -13,7 +12,7 @@ type TableProps = {
 
 export function Table({ data, style, cellStyle } : TableProps) {
 	return (
-		<Container style={[styles.container, style]}>
+		<ScrollView style={[styles.container, style]}>
 			{
 				data.map((cell, index) => {
 					return (
@@ -43,7 +42,7 @@ export function Table({ data, style, cellStyle } : TableProps) {
 					)
 				})
 			}
-		</Container>
+		</ScrollView>
 	);
 }
 

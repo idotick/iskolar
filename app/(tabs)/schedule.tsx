@@ -9,7 +9,6 @@ import { Table } from '@/components/table/Table';
 import { ClassData, TeacherData } from '@/components/table/types';
 import Container from '@/components/containers/Container';
 import SearchBar from '@/components/SearchBar';
-import PageContainer from '@/components/containers/PageContainer';
 
 export default function HomeScreen() {
 	const teacher_infos: TeacherData[][] = [
@@ -205,7 +204,7 @@ export default function HomeScreen() {
 			<PagedContainer
 				style={styles.schedule}
 				containerStyle={styles.container}
-				but-nStyle={styles.button}
+				buttonStyle={styles.button}
 				pages={['Mon', 'Tue', 'Wed', 'Thu', 'Fri']}
 				selected={day}
 			>
@@ -215,6 +214,7 @@ export default function HomeScreen() {
 							<Table
 								data={schedule}
 								key={index}
+								cellStyle={styles.cell}
 							/>
 						)
 					})
@@ -232,8 +232,8 @@ export default function HomeScreen() {
 							<Table
 								data={teacher}
 								key={index}
-								cellStyle={{ width: '25%', flexGrow: 100, fontSize: 9 }}
-								style={{ marginTop: 20 }}
+								cellStyle={[styles.cell, styles.consultCell]}
+								style={styles.consultTable}
 							/>
 						);
 					})
@@ -264,6 +264,15 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		width: 55,
+	},
+	consultTable: {
+		marginTop: 20
+	},
+	cell: {
+		fontSize: 9,
+	},
+	consultCell: {
+		width: '25%',
 	},
 	title: {
 		marginBottom: 10,
