@@ -4,24 +4,24 @@ import { View, StyleSheet, Text, StyleProp, ViewStyle, TextInput } from "react-n
 type FormInputProps = {
     name: string,
     content: string,
-    on_change: (value: string) => void,
+    onChange: (value: string) => void,
     secured?: boolean
     style?: StyleProp<ViewStyle>,
 };
 
-export function FormInput ( { name, content, on_change, style, secured }: FormInputProps ) {
+export function FormInput ( { name, content, onChange, style, secured }: FormInputProps ) {
     return (<View style={[style, styles.container]}>
         <Text style={styles.label}> { name } </Text>
 
-        <TextInput style={styles.input} value={content} onChangeText={on_change} secureTextEntry={secured}/>
+        <TextInput style={styles.input} value={content} onChangeText={onChange} secureTextEntry={secured}/>
     </View>);
 }
 
-export function SmallFormInput ( { name, content, on_change, style, secured }: FormInputProps ) {
-    return (<View style={[style, styles.container, styles.half_container]}>
+export function SmallFormInput ( { name, content, onChange, style, secured }: FormInputProps ) {
+    return (<View style={[style, styles.container, styles.halfContainer]}>
         <Text style={styles.label}> { name } </Text>
 
-        <TextInput style={styles.input} value={content} onChangeText={on_change} secureTextEntry={secured}/>
+        <TextInput style={styles.input} value={content} onChangeText={onChange} secureTextEntry={secured}/>
     </View>);
 }
 
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#00000040"
     },
 
-    half_container: {
+    halfContainer: {
         width: "39%",
     },
 

@@ -1,17 +1,16 @@
 
 import { StyleProp, View, ViewStyle, StyleSheet, Image} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 
 type ProfileCardProps = {
     size: number,
     style?: StyleProp<ViewStyle>
 };
 
-const profile_image = require('@/assets/images/profile.png');
+const profileImage = require('@/assets/images/profile.png');
 
 export default function ProfileCard( { style, size } : ProfileCardProps){
     return (<View style={[styles.container, style]}>
-        <Image source={profile_image} style={styles.icon} />
+        <Image source={profileImage} style={styles.icon} />
     </View>);
 }
 

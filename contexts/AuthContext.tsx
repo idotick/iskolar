@@ -3,19 +3,19 @@ import { StyleSheet, View } from "react-native";
 
 import { Redirect } from "expo-router";
 
-import { validate_session } from "@/handlers/session";
+import { validateSession } from "@/handlers/session";
 import SplashScreen from "@/screens/SplashScreen";
 
 export default function AuthProvider( { children }: any){
-    const [ authenticated, set_authenticated ] = useState<boolean>(false);
+    const [ authenticated, setAuthenticated ] = useState<boolean>(false);
 
-    const [ loaded, set_loaded ] = useState<boolean>(false);
+    const [ loaded, setLoaded ] = useState<boolean>(false);
 
     async function authenticate(){
-        const code: number = await validate_session();
+        const code: number = await validateSession();
 
-        set_authenticated(code == 0);
-        set_loaded(true);
+        setAuthenticated(code == 0);
+        setLoaded(true);
     }
 
     useEffect(() => {

@@ -1,8 +1,8 @@
+import { Text, StyleSheet, ViewProps } from "react-native";
+
 import { Card } from "../cards/Card";
 
 import RowContainer from "../containers/RowContainer";
-
-import { Text, StyleSheet, ViewProps } from "react-native";
 
 export default function SchedulePreview( { style }: ViewProps ){
     return (<Card border_radius={16} style={[styles.container, style]}>
@@ -10,7 +10,6 @@ export default function SchedulePreview( { style }: ViewProps ){
             <Text style={styles.card_subtext}> CLASS SCHEDULE </Text>
         </RowContainer>
         
-
         <RowContainer>
             <Text style={[styles.card_text, {color: "#b7caffff"}]}> Mathematics 5 </Text>
             <Text style={[styles.card_text, {right: -40}]}> 7:20 to 8:10 </Text>

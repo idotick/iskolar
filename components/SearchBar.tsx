@@ -1,6 +1,9 @@
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { TextInput, StyleSheet } from 'react-native';
 import { useState } from 'react';
+
+import { TextInput, StyleSheet } from 'react-native';
+
+import Ionicons from '@expo/vector-icons/Ionicons';
+
 
 import RowContainer from './containers/RowContainer';
 

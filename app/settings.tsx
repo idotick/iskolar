@@ -30,10 +30,10 @@ export default function SettingsScreen() {
     <PageContainer>
       <Page>
         <SettingContainer> 
-          <Text> Lo</Text>
+          <Text> </Text>
         </SettingContainer>
 
-        <AuthButton name="signout" on_press={onLogOut} style={styles.button} />
+        <AuthButton name="signout" onAction={onLogOut} style={styles.button} />
 
       </Page>
     </PageContainer>

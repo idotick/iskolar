@@ -14,17 +14,11 @@ import ProfilePreview from '@/components/previews/ProfilePreview';
 export default function HomeScreen() {
 	return (
 		<PageContainer>
-
 			<Page>
-
 				<ProfilePreview/>
-
 				<SchedulePreview style={styles.schedule}/>
-				
 				<AnnouncementsPreview style={styles.announcements} data={["Welcome to Pisay!", "Gym has re-opened after 2 weeks."]}/>
-
 			</Page>
-
 		</PageContainer>
 	);
 }

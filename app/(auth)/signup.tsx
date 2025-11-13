@@ -7,40 +7,39 @@ import { ImageBackground } from 'expo-image';
 import { FormInput, SmallFormInput } from '@/components/form/Input';
 import AuthButton from '@/components/form/AuthButton';
 
-import { request_login, request_registration, } from '@/handlers/session';
+import { requestLogIn, requestRegister, } from '@/handlers/session';
 import { Link, Redirect } from 'expo-router';
 import PageContainer from '@/components/containers/PageContainer';
+import { getFullName } from '@/util/helpers';
 
 const background_image = require('@/assets/images/background.jpg');
 
 export default function RegisterScreen() {
-    const [fname, set_fname ] = useState<string>('');
-    const [mname, set_mname ] = useState<string>('');
-    const [lname, set_lname ] = useState<string>('');
+    const [fName, setFName ] = useState<string>('');
+    const [mName, setMName ] = useState<string>('');
+    const [lName, setLName ] = useState<string>('');
 
-	const [email, set_email ] = useState<string>('');
+	const [email, setEmail ] = useState<string>('');
 	
-    const [user_id, set_user_id ] = useState<string>('14-2021-075');
+    const [userID, setUserID ] = useState<string>('14-2021-075');
 
-    const [password, set_password ] = useState<string>('');
-    const [confirmed_password, set_confirmed_password ] = useState<string>('');
+    const [password, setPassword ] = useState<string>('');
+    const [cfPassword, setCFPassword ] = useState<string>('');
 
-    const [authenticated, set_authenticated] = useState<boolean>(false);
+    const [authenticated, setAuthenticated] = useState<boolean>(false);
 
-    const on_signup = async () => {
-        if (password != confirmed_password){
+    async function onRegister() {
+        if (password != cfPassword){
             return;
         }
 
-        const name: string = fname + " " + mname + ". " + lname;
-
-        const code = await request_registration(user_id, name, email, password);
+        const code = await requestRegister(userID, getFullName(fName, mName, lName), email, password);
 
         if (code){
             return;
         }
 
-        set_authenticated(true);
+        setAuthenticated(true);
     }
 
     if (authenticated){
@@ -57,18 +56,18 @@ export default function RegisterScreen() {
 
             <View style={styles.form}>
                 <View style={{alignSelf: "center", flexDirection: "row"}}>
-                    <SmallFormInput name={"first name"} content={fname} on_change={set_fname} style={{marginRight: "1%"}}/>
-                    <SmallFormInput name={"middle name"} content={mname} on_change={set_mname} style={{marginLeft: "1%"}}/>
+                    <SmallFormInput name={"first name"} content={fName} onChange={setFName} style={{marginRight: "1%"}}/>
+                    <SmallFormInput name={"middle name"} content={mName} onChange={setMName} style={{marginLeft: "1%"}}/>
                 </View>
 
-                <FormInput name={"last name"} content={lname} on_change={set_lname}/>
+                <FormInput name={"last name"} content={lName} onChange={setLName}/>
 
-                <FormInput name={"email"} content={email} on_change={set_email}/>
+                <FormInput name={"email"} content={email} onChange={setEmail}/>
 
-                <FormInput name={"password"} content={password} on_change={set_password} secured/>
-                <FormInput name={"confirm_password"} content={confirmed_password} on_change={set_confirmed_password} secured/>
+                <FormInput name={"password"} content={password} onChange={setPassword} secured/>
+                <FormInput name={"confirm_password"} content={cfPassword} onChange={setCFPassword} secured/>
 
-                <AuthButton name={"sign up"} on_press={on_signup} style={styles.button} />
+                <AuthButton name={"sign up"} onAction={onRegister} style={styles.button} />
 
                 <Link href="/(auth)/signin" style={styles.link}>
                     <Text style={styles.link_text}> Already have an account? <Text style={styles.highlighted_link_text}> Sign up. </Text></Text>

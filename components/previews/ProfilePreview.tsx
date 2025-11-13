@@ -33,12 +33,12 @@ export default function ProfilePreview(){
         </RowContainer>);
     }
 
-    const nameParts: string[] = userData.name.split(" ");
+    const firstName: string = userData.name.split(" ")[0];
 
     return (<RowContainer>
         <ProfileCard style={styles.profile} size={64}/>
         <Container>
-            <Text style={styles.hello}> Hello {nameParts[0]}! </Text>
+            <Text style={styles.hello}> Hello {firstName}! </Text>
             <Card border_radius={16} style={styles.description}>
                 <Text style={styles.card_subtext}> 11 - RIGEL </Text>
                 <Text style={styles.card_subtext}> INTERN </Text>

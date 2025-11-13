@@ -1,12 +1,16 @@
-export function validate_email(text: string): boolean {
+export function validateEmail(text: string): boolean {
   var re = /\S+@\S+\.\S+/;
   return re.test(text);
 }
 
-export function extract_domain(text: string): string {
+export function extractDomain(text: string): string {
     return text.substring(text.indexOf('@') + 1);
 }
 
-export function validate_password(text: string): boolean {
+export function validatePassword(text: string): boolean {
     return true;
+}
+
+export function getFullName(fName: string, mName: string, lName: string){
+  return fName + " " + mName + " . " + lName;
 }

@@ -2,50 +2,49 @@ import { useEffect, useState } from 'react';
 
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 
+import { Link, Redirect } from 'expo-router';
+
 import { Image, ImageBackground } from 'expo-image';
 
 import { FormInput } from '@/components/form/Input';
 import AuthButton from '@/components/form/AuthButton';
-
-import { request_login, validate_session } from '@/handlers/session';
-import { Link, Redirect } from 'expo-router';
-import { Page } from '@/components/Page';
 import PageContainer from '@/components/containers/PageContainer';
 import AuthAlert from '@/components/alerts/AuthAlert';
-import { extract_domain, validate_email } from '../../util/helpers';
+import { validateEmail } from '@/util/helpers';
+import { requestLogIn } from '@/handlers/session';
 
 const background_image = require('@/assets/images/background.jpg');
 const title_text = require('@/assets/images/iskolar-text.png');
 const ribbon = require('@/assets/images/ribbon.svg');
 
-export default function LoginScreen() {
-	const [email, set_email ] = useState<string>('');
-	const [password, set_password ] = useState<string>('');
+export default function LogInScreen() {
+	const [email, setEmail ] = useState<string>('');
+	const [password, setPassword ] = useState<string>('');
 
     const [authenticated, set_authenticated] = useState<boolean>(false);
 
     const [alert, set_alert] = useState<string>("");
 
-    const stop_alert = () => {
+    const stopAlert = () => {
         set_alert("");
     }
 
-    const start_alert = (message: string) => {
+    const startAlert = (message: string) => {
         set_alert(message);
 
-        setTimeout(stop_alert, 2000);
+        setTimeout(stopAlert, 2000);
     }
 
-    const on_signin = async () => {
-        if (!validate_email(email)){
-            start_alert("Invalid email");
+    const onLogIn = async () => {
+        if (!validateEmail(email)){
+            startAlert("Invalid email");
             return;
         }
 
-        const code = await request_login(email, password);
+        const code = await requestLogIn(email, password);
 
         if (code == -1){
-            start_alert("Unable to connect to network.");
+            startAlert("Unable to connect to network.");
             return;
         }
 
@@ -72,12 +71,12 @@ export default function LoginScreen() {
             
             <Image source={title_text} style={styles.title} />
 
-            <FormInput name={"email"} content={email} on_change={set_email}/>
-            <FormInput name={"password"} content={password} on_change={set_password} secured/>
+            <FormInput name={"email"} content={email} onChange={setEmail}/>
+            <FormInput name={"password"} content={password} onChange={setPassword} secured/>
 
             <AuthAlert style={styles.alert} message={alert}/>
 
-            <AuthButton name={"sign in"} on_press={on_signin} style={styles.button} />
+            <AuthButton name={"sign in"} onAction={onLogIn} style={styles.button} />
 
             <Link href="/(auth)/signup" style={styles.link}>
                 <Text style={styles.link_text}> Don't have an account? </Text>

@@ -1,16 +1,17 @@
 import { ActivityIndicator, StyleSheet, View, Text, Image, ImageBackground } from "react-native";
 
-const background_image = require('@/assets/images/background.jpg');
-const title_text = require('@/assets/images/iskolar-text.png');
+const backgroundImage = require('@/assets/images/background.jpg');
+const titleText = require('@/assets/images/iskolar-text.png');
 
 export default function SplashScreen() {
     return (<View style={styles.container}>
         <ImageBackground
-				source={background_image}
+				source={backgroundImage}
 				style={styles.background}
 				imageStyle={{ opacity: 0.7 }}
 		/>
-        <Image source={title_text} style={styles.title} />
+        
+        <Image source={titleText} style={styles.title} />
 
         <ActivityIndicator size="large" color={"white"}/>
     </View>);

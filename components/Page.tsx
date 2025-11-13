@@ -1,7 +1,4 @@
-import { StyleSheet, View, ScrollView, ViewProps, ImageBackground } from "react-native";
-
-
-const background_image = require('@/assets/images/background.jpg');
+import { StyleSheet, View, ScrollView, ViewProps } from "react-native";
 
 export function ScrollablePage({ children, style }: ViewProps) {
 	return (
@@ -13,7 +10,6 @@ export function ScrollablePage({ children, style }: ViewProps) {
 		
 	);
 }
-
 export function Page({ children, style }: ViewProps) {
 	return (
 		<View style={[styles.screen_container, style]}>

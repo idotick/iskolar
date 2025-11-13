@@ -2,12 +2,12 @@ import { StyleProp, StyleSheet, TouchableOpacity, ViewStyle, Text } from "react-
 
 type AuthButtonProps = {
     name: string,
-    on_press: () => void,
+    onAction: () => void,
     style?: StyleProp<ViewStyle>
 };
 
-export default function AuthButton({ name, on_press, style }: AuthButtonProps ) {
-    return (<TouchableOpacity style={[style, styles.button]} onPress={on_press}>
+export default function AuthButton({ name, onAction, style }: AuthButtonProps ) {
+    return (<TouchableOpacity style={[style, styles.button]} onPress={onAction}>
         <Text style={styles.label}>
             { name.toUpperCase() }
         </Text>

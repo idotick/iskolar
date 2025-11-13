@@ -23,11 +23,11 @@ type PagedContainerProps = {
 
 
 export default function PagedContainer( { pages, selected=0, style, containerStyle, buttonStyle, children }: PagedContainerProps ) {
-	const [page, set_page] = useState<number>(selected);
+	const [page, setPage] = useState<number>(selected);
 
 	const render_page_buttons: ListRenderItem<string> = ({ item, index }) => (
 		<Pressable
-			onPress={() => set_page(index)}
+			onPress={() => setPage(index)}
 			style={[page === index ? styles.clickedButton : styles.button, buttonStyle]}
 			key={index}
 		>
