@@ -13,14 +13,14 @@ import PageContainer from '@/components/containers/PageContainer';
 
 const background_image = require('@/assets/images/background.jpg');
 
-export default function LoginScreen() {
+export default function RegisterScreen() {
     const [fname, set_fname ] = useState<string>('');
     const [mname, set_mname ] = useState<string>('');
     const [lname, set_lname ] = useState<string>('');
 
 	const [email, set_email ] = useState<string>('');
 	
-    const [user_id, set_user_id ] = useState<string>('');
+    const [user_id, set_user_id ] = useState<string>('14-2021-075');
 
     const [password, set_password ] = useState<string>('');
     const [confirmed_password, set_confirmed_password ] = useState<string>('');

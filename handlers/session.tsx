@@ -1,26 +1,20 @@
-import { useState, useEffect } from "react";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { ActivityIndicator, View, Image} from "react-native";
+import { logInUser, LoginResponse, logOutUser, LogoutResponse, validateUser, ValidateResponse } from "@/network/auth";
 
-import { Redirect } from "expo-router";
-
-import { login_user, LoginResponse, logout_user, LogoutResponse, validate_user, ValidateResponse } from "@/network/auth";
-
-import { AuthReceipt, register_user, resolve_user } from "@/network/user";
+import { AuthReceipt, registerUser, resolveUser } from "@/network/user";
 
 import { UserInfo } from "./user"
 
-
-async function validate_session(): Promise<number> {
+export async function validateSession(): Promise<number> {
   const session: string | null = await AsyncStorage.getItem('session');
 
   if (session == null){
     return 1;
   }
 
-  const res: ValidateResponse = await validate_user(session);
+  const res: ValidateResponse = await validateUser(session);
 
   if (res.code){
     AsyncStorage.removeItem('session');
@@ -31,17 +25,17 @@ async function validate_session(): Promise<number> {
   return 0;
 }
 
-async function request_login(email: string, password: string): Promise<number>{
-    const res = await login_user(email, password);
+export async function requestLogin(email: string, password: string): Promise<number>{
+    const res = await logInUser(email, password);
 
     if (res.code == 1){  
-      const logout_res: LogoutResponse = await logout_user("");
+      const fix: LogoutResponse = await logOutUser("");
   
-      if (logout_res.code){
+      if (fix.code){
         return -3;
       }
 
-      return request_login(email, password);
+      return requestLogin(email, password);
     }
     
     if (res.code){
@@ -57,22 +51,22 @@ async function request_login(email: string, password: string): Promise<number>{
     return 0;
 }
 
-async function request_registration(id: string, name: string, email: string, password: string): Promise<number>{
+export async function requestRegister(id: string, name: string, email: string, password: string): Promise<number>{
   
-    const res: AuthReceipt | null = await register_user(id, email, name, password);
+    const res: AuthReceipt | null = await registerUser(id, email, name, password);
 
     if (!res){
       return -1;
     }
 
     if (res.code == 1){
-      const code = await logout_user("");
+      const fix = await logOutUser("");
   
-      if (code){
+      if (fix.code){
         return -3;
       }
 
-      return request_registration(id, name, email, password);
+      return requestRegister(id, name, email, password);
     }
 
     if (res.code){
@@ -90,26 +84,26 @@ async function request_registration(id: string, name: string, email: string, pas
     return 0;
 }
 
-async function request_logout(): Promise<number>{
+export async function requestLogout(): Promise<number>{
     const session: string | null = await AsyncStorage.getItem("session");
   
     if (session == null){
       return -2;
     }
   
-    const res: LogoutResponse = await logout_user(session);
+    const res: LogoutResponse = await logOutUser(session);
     
     return res.code;
 }
 
-async function request_resolve(): Promise<UserInfo | null> {
+export async function requestResolve(): Promise<UserInfo | null> {
   const session: string | null = await AsyncStorage.getItem("session");
 
   if (session == null){
       return null;
   }
 
-  const res: UserInfo | null = await resolve_user(session);
+  const res: UserInfo | null = await resolveUser(session);
 
   if (res == null){
       return null;
@@ -117,5 +111,3 @@ async function request_resolve(): Promise<UserInfo | null> {
 
   return res;
 }
-
-export { UserInfo, validate_session, request_login, request_logout, request_registration, request_resolve }

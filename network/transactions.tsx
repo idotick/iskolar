@@ -1,10 +1,10 @@
 import { OrderItem } from "@/handlers/orders";
 
-import { http_url } from "./defaults";
+import { httpURL } from "./defaults";
 
 const route: string = "/api/v1/transactions"
 
-function pack_items_to_text(items: OrderItem[]){
+function packItemData(items: OrderItem[]){
     let packed_text: string = "";
 
     items.forEach((item: OrderItem) => {
@@ -14,13 +14,13 @@ function pack_items_to_text(items: OrderItem[]){
     return packed_text;
 }
 
-async function create_transaction(session: string, uuid: string, items: OrderItem[]){
-    const url: string = http_url + route + "/add?" + new URLSearchParams({
+export async function createTransaction(session: string, uuid: string, items: OrderItem[]){
+    const url: string = httpURL + route + "/add?" + new URLSearchParams({
         cookie: session,
         cookieless: "true"
     }).toString();
 
-    const packed: string = pack_items_to_text(items);
+    const packed: string = packItemData(items);
 
     console.log("Posted transaction creation request to server.");
 
@@ -40,11 +40,8 @@ async function create_transaction(session: string, uuid: string, items: OrderIte
         const json = await res.json();
 
         if (json.code){
-            console.log("Failed to post transaction creation request to server?");
             return -1;
         }
-
-        console.log("Successfully posted transaction creation request to server.");
 
         return 0;
     }
@@ -56,5 +53,3 @@ async function create_transaction(session: string, uuid: string, items: OrderIte
         return -2;
     }
 }
-
-export { create_transaction }

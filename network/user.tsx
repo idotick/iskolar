@@ -1,8 +1,8 @@
-import { http_url } from "./defaults";
+import { httpURL } from "./defaults";
+
 import { sha512 } from "js-sha512";
 
-import { UserInfo } from "@/handlers/session";
-import { UserData } from "@/handlers/user";
+import { UserData, UserInfo } from "@/handlers/user";
 
 const route: string = "/api/v1/users";
 
@@ -11,8 +11,8 @@ export type AuthReceipt = {
     cookie: string | null,
 };
 
-export async function register_user(id: string, email: string, name: string, password: string): Promise<AuthReceipt | null> {
-    const url: string = http_url + route + "/register";
+export async function registerUser(id: string, email: string, name: string, password: string): Promise<AuthReceipt | null> {
+    const url: string = httpURL + route + "/register";
     
     const hash: string = sha512(password);
 
@@ -40,7 +40,7 @@ export async function register_user(id: string, email: string, name: string, pas
 
         console.log("Successfully posted register request.");
 
-        return { code: json.code, cookie: null };
+        return { code: json.code, cookie: json.cookie };
         
     } catch (err) {
         console.log("Error while posting register request?");
@@ -51,18 +51,18 @@ export async function register_user(id: string, email: string, name: string, pas
     }
 }
 
-export async function resolve_user(session: string, user_id: string | null = null): Promise<UserInfo | null> {
+export async function resolveUser(session: string, user_id: string | null = null): Promise<UserInfo | null> {
     let url: string;
 
     if (user_id == null){
-        url = http_url + route + "/resolve?" + new URLSearchParams({
+        url = httpURL + route + "/resolve?" + new URLSearchParams({
             cookie: session,
             cookieless: "true",
         });
     }
 
     else {
-        url = http_url + route + "/resolve?" + new URLSearchParams({
+        url = httpURL + route + "/resolve?" + new URLSearchParams({
             cookie: session,
             cookieless: "true",
             uuid: user_id
@@ -75,12 +75,9 @@ export async function resolve_user(session: string, user_id: string | null = nul
         const json: any = await res.json();
 
         if (json.code){
-            console.log("Failed to send user resolve request?");
             return null;
         }
 
-        console.log("Successfully fetched user resolve info.");
-        
         return {uuid: json.uuid, id: json.id, email: json.email, name: json.name};
         
     } catch (err) {
@@ -90,13 +87,11 @@ export async function resolve_user(session: string, user_id: string | null = nul
     }
 }
 
-export async function get_user_list(session: string): Promise<UserData[] | null> {
-    const url: string = http_url + route + "/list" + "?" + new URLSearchParams({
+export async function resolveUserList(session: string): Promise<UserData[] | null> {
+    const url: string = httpURL + route + "/list" + "?" + new URLSearchParams({
             cookie: session,
             cookieless: "true"
     }).toString();
-
-    console.log("Requested server to list users.");
 
     try {
         const res: Response = await fetch(url);
@@ -104,7 +99,6 @@ export async function get_user_list(session: string): Promise<UserData[] | null>
         const json: any = await res.json();
     
         if (json.code){
-            console.log("Failed to request user list?");
             return null;
         }
 

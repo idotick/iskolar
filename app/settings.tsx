@@ -1,6 +1,5 @@
 import { Text, View, Platform, StyleSheet } from 'react-native';
 
-
 import { StatusBar } from 'expo-status-bar';
 import PageContainer from '@/components/containers/PageContainer';
 import { Page } from '@/components/Page';

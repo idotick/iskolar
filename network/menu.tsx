@@ -1,10 +1,11 @@
-import { http_url } from "./defaults";
+import { httpURL } from "./defaults";
+
 import { FoodItem } from '@/handlers/item';
 
 const route = "/api/v1/menu"
 
-async function get_menu_list(): Promise<FoodItem[] | null> {
-    const url = http_url + route + "/resolve";
+export async function resolveMenuList(): Promise<FoodItem[] | null> {
+    const url = httpURL + route + "/resolve";
 
     try {
         const res: Response = await fetch(url);
@@ -12,7 +13,6 @@ async function get_menu_list(): Promise<FoodItem[] | null> {
         const json = await res.json();
 
         if (json.code){
-            console.log("Failed to fetch menu list?");
             return null;
         }
 
@@ -25,10 +25,8 @@ async function get_menu_list(): Promise<FoodItem[] | null> {
     }
 }
 
-async function add_to_menu(session: string, uuid: string){
-    const url = http_url + route + "/add?";
-
-    console.log("Posting menu add request to server.");
+export async function addMenuItem(session: string, uuid: string){
+    const url = httpURL + route + "/add?";
 
     try {
         const res: Response = await fetch(url + new URLSearchParams({
@@ -47,11 +45,8 @@ async function add_to_menu(session: string, uuid: string){
         const json = await res.json();
 
         if (json.code){
-            console.log("Failed to post menu add request.");
             return -1;
         }
-
-        console.log("Successfully posted menu add request.");
 
         return 0;
     }
@@ -63,8 +58,8 @@ async function add_to_menu(session: string, uuid: string){
     }
 }
 
-async function remove_from_menu(session: string, uuid: string){
-    const url = http_url + route + "/remove?";
+export async function removeMenuItem(session: string, uuid: string){
+    const url = httpURL + route + "/remove?";
 
     console.log("Posting menu remove request to server.");
 
@@ -85,11 +80,8 @@ async function remove_from_menu(session: string, uuid: string){
         const json = await res.json();
 
         if (json.code){
-            console.log("Failed to post menu remove request.");
             return -1;
         }
-
-        console.log("Successfully posted menu remove request.");
 
         return 0;
     }
@@ -101,10 +93,8 @@ async function remove_from_menu(session: string, uuid: string){
     }
 }
 
-async function clear_menu(session: string){
-    const url = http_url + route + "/clear?";
-
-    console.log("Posting menu clear request to server");
+export async function clearMenu(session: string){
+    const url = httpURL + route + "/clear?";
 
     try {
         const res: Response = await fetch(url + new URLSearchParams({
@@ -120,11 +110,8 @@ async function clear_menu(session: string){
         const json = await res.json();
 
         if (json.code){
-            console.log("Failed to post menu clear request.");
             return -1;
         }
-
-        console.log("Successfully posted menu clear request.");
 
         return 0;
     }
@@ -135,7 +122,3 @@ async function clear_menu(session: string){
         return -2;
     }
 }
-
-
-
-export { add_to_menu, get_menu_list, remove_from_menu, clear_menu }

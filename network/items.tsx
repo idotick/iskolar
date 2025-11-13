@@ -1,17 +1,15 @@
 import { OrderItem } from "@/handlers/orders";
-import { http_url } from "./defaults";
+import { httpURL } from "./defaults";
 
 import { FoodItem } from "@/handlers/item";
 
 const route = "/api/v1/items"
 
-async function create_item(session: string, item: any): Promise<number> {
-    const url: string = http_url + route + "/add?";
-
-    console.log("Requesting server to create item.");
+export async function createItem(session: string, item: any): Promise<number> {
+    const url: string = httpURL + route + "/add?";
     
     try {
-        const res: Response= await fetch(url + new URLSearchParams({
+        const res: Response = await fetch(url + new URLSearchParams({
             cookie: session,
             cookieless: "true"
         }).toString(), {
@@ -31,25 +29,19 @@ async function create_item(session: string, item: any): Promise<number> {
         const json = await res.json();
 
         if (json.code){
-            console.log("Failed to create item.");
             return -1;
         }
     }
 
     catch (err) {
-        console.log("Error while requesting item creation?");
         return -2;
     }
-        
-    console.log("Successfully created item.");
 
     return 0;
 }
 
-async function destroy_item(session: string, uuid: string): Promise<number> {
-    const url: string = http_url + route + "/delete?";
-
-    console.log("Requesting server to destroy item.");
+export async function destroyItem(session: string, uuid: string): Promise<number> {
+    const url: string = httpURL + route + "/delete?";
     
     try {
         const res: Response= await fetch(url + new URLSearchParams({
@@ -69,25 +61,19 @@ async function destroy_item(session: string, uuid: string): Promise<number> {
         const json = await res.json();
 
         if (json.code){
-            console.log("Failed to destroy item.");
             return -1;
         }
     }
 
     catch (err) {
-        console.log("Error while requesting item destruction?");
         return -2;
     }
-        
-    console.log("Successfully destroyed item.");
 
     return 0;
 }
 
-async function get_item_list(): Promise<Array<FoodItem> | null> {
-    const url: string = http_url + route + "/list";
-
-    console.log("Requested item list from server.")
+export async function resolveItemList(): Promise<Array<FoodItem> | null> {
+    const url: string = httpURL + route + "/list";
 
     try {
         const res = await fetch(url);
@@ -95,28 +81,23 @@ async function get_item_list(): Promise<Array<FoodItem> | null> {
         const json = await res.json();
 
         if (json.code){
-            console.log("Failed to acquire item list?");
             return null
         }
-
-        console.log("Successfully acquired item list.");
 
         return json.items;
     }
 
     catch (err) {
-        console.log("Error while requesting item list?");
+        console.log("Error while resolving item list?");
         console.log(err);
         return null
     }
 }
 
-async function resolve_item(id: string): Promise<FoodItem | null>{
-    const url: string = http_url + route + "/resolve?" + new URLSearchParams({
+export async function resolveItem(id: string): Promise<FoodItem | null>{
+    const url: string = httpURL + route + "/resolve?" + new URLSearchParams({
         uuid: id
     });
-
-    console.log("Requested item resolve from server.")
 
     try {
         const res = await fetch(url);
@@ -124,11 +105,8 @@ async function resolve_item(id: string): Promise<FoodItem | null>{
         const json = await res.json();
 
         if (json.code){
-            console.log("Failed to resolve item?");
             return null
         }
-
-        console.log("Successfully resolved item.");
 
         return { uuid: json.uuid, name: json.name, description: json.description, price: json.price, type: json.type };
     }
@@ -140,15 +118,12 @@ async function resolve_item(id: string): Promise<FoodItem | null>{
     }
 }
 
-async function resolve_items(items: OrderItem[]): Promise<FoodItem[] | null>{
-    console.log("Requested multiple item resolve from server.");
-
+export async function resolveItems(items: OrderItem[]): Promise<FoodItem[] | null>{
     try {
         const requests = items.map((item: OrderItem) => {
-            const url: string =  http_url + route + "/resolve?" + new URLSearchParams({ uuid: item.id }).toString()
+            const url: string =  httpURL + route + "/resolve?" + new URLSearchParams({ uuid: item.id }).toString()
             return fetch(url);
-        }
-        );
+        });
 
         const responses = await Promise.all(requests);
 
@@ -173,11 +148,8 @@ async function resolve_items(items: OrderItem[]): Promise<FoodItem[] | null>{
         })
 
         if (!valid){
-            console.log("Failed to resolve multiple items?");
             return null;
         }
-
-        console.log("Successfully resolved items.");
 
         return resolved;
     }
@@ -188,5 +160,3 @@ async function resolve_items(items: OrderItem[]): Promise<FoodItem[] | null>{
         return null
     }
 }
-
-export { create_item, destroy_item, get_item_list, resolve_item, resolve_items }

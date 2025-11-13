@@ -1,33 +1,35 @@
-import { get_monitor_socket, resolve_order } from "@/network/orders";
+import { resolveMonitor, resolveOrder } from "@/network/orders";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { create_order, update_order } from "@/network/orders";
-import { request_resolve, UserInfo } from "./session";
+import { createOrder, updateOrder } from "@/network/orders";
 
-type OrderInfo = { 
+import { UserInfo } from "./user";
+import { requestResolve } from "./session";
+
+export type OrderInfo = { 
     type: string,
     id: string,
     status: number
 };
 
-type OrderData = {
+export type OrderData = {
     owner: string,
     items: OrderItem[],
 }
 
-type OrderItem = {
+export type OrderItem = {
     id: string,
     amount: number
 };
 
-type ResolvedOrder = {
+export type ResolvedOrder = {
     owner_name: string,
     id: string,
     items: ItemData[],
     status: number
 };
 
-type ItemData = {
+export type ItemData = {
     name: string,
     description: string,
     amount: number
@@ -35,74 +37,52 @@ type ItemData = {
 };
 
 
-async function start_monitoring(){
+export async function startMonitoring(){
     const session: string | null = await AsyncStorage.getItem("session");
 
     if (session == null){
-        console.log("Non-existent session while trying to start monitoring?");
         return null;
     }
 
-    const user_info: UserInfo | null = await request_resolve();
+    const userInfo: UserInfo | null = await requestResolve();
 
-    if (user_info == null){
-        console.log("Failed to request user information while trying to start monitoring?");
+    if (userInfo == null){
         return null;
     }
 
-    const uuid: string = user_info.uuid;
+    const uuid: string = userInfo.uuid;
 
-    const socket: WebSocket | null = await get_monitor_socket(session, uuid);
+    const socket: WebSocket | null = await resolveMonitor(session, uuid);
 
     if (socket == null){
-        console.log("Failed to request monitor socket?");
         return null;
     }
-
-    console.log("Succesfully started monitoring.");
 
     return socket;
 }
 
-async function request_order(order: OrderItem[]): Promise<string | null>{
+export async function requestOrder(order: OrderItem[]): Promise<string | null>{
     const session: string | null = await AsyncStorage.getItem("session");
-  
-    console.log("Requested order creation.");
-    
+
     if (!session){
-      console.log("Non-existent session while ordering?");
-  
       return null;
     }
   
-    const res = await create_order(session, order);
-  
-    if (res == null){
-      console.log("Failed to create order.");
-      return null;
-    }
-  
-    console.log("Successfully created order no. " + res + ".");
+    const res = await createOrder(session, order);
   
     return res;
 }
 
-async function request_order_data(order_id: string) {
+export async function requestOrderData(orderID: string) {
     const session: string | null = await AsyncStorage.getItem("session");
-  
-    console.log("Requested order data resolve.");
     
     if (!session){
-      console.log("Non-existent session while resolving order data?");
-  
       return null;
     }
 
-    const res: OrderData | null = await resolve_order(session, order_id);
+    const res: OrderData | null = await resolveOrder(session, orderID);
 
     if (res == null){
-        console.log("Unable to request order data?");
-        
         return null;
     }
 
@@ -110,29 +90,18 @@ async function request_order_data(order_id: string) {
 }
   
 
-async function request_update_order(order_id: string, status: number) {
+export async function requestOrderUpdate(order_id: string, status: number) {
     const session: string | null = await AsyncStorage.getItem("session");
   
-    console.log("Requested order status update.");
-    
     if (!session){
-      console.log("Non-existent session while updating order status?");
-  
       return null;
     }
   
-    const code = await update_order(session, order_id, status);
+    const code = await updateOrder(session, order_id, status);
   
     if (code){
-      console.log("Failed to update status.");
-  
       return code;
     }
   
-    console.log("Successfully updated order.");
-  
     return code;
 }
-  
-
-export { OrderInfo, OrderItem, OrderData, ResolvedOrder, ItemData, start_monitoring, request_order, request_order_data, request_update_order }

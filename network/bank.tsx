@@ -1,4 +1,4 @@
-import { http_url } from "./defaults"
+import { httpURL } from "./defaults"
 
 const route: string = "/api/v1/bank"
 
@@ -11,8 +11,8 @@ export type BalanceResponse = {
     balance?: number
 };  
 
-export async function add_credit(session: string, uuid: string, amount: number): Promise<CreditResponse> {
-    const url = http_url + route + "/credit?" + new URLSearchParams({
+export async function addCredit(session: string, uuid: string, amount: number): Promise<CreditResponse> {
+    const url = httpURL + route + "/credit?" + new URLSearchParams({
         cookie: session,
         cookieless: "true"
     }).toString();
@@ -39,8 +39,8 @@ export async function add_credit(session: string, uuid: string, amount: number):
     }
 }
 
-export async function get_balance(session: string): Promise<BalanceResponse> {
-    const url: string = http_url + route + "/balance" + "?" + new URLSearchParams({
+export async function getBalance(session: string): Promise<BalanceResponse> {
+    const url: string = httpURL + route + "/balance" + "?" + new URLSearchParams({
         cookie: session,
         cookieless: "true"
     }).toString();
@@ -56,7 +56,9 @@ export async function get_balance(session: string): Promise<BalanceResponse> {
 
         return { code: json.code, balance: json.balance };
 
-    } catch (err){
+    } 
+    
+    catch (err){
         return { code: -1 };
     }
 }

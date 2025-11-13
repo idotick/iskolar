@@ -1,4 +1,4 @@
-import { http_url } from "./defaults";
+import { httpURL } from "./defaults";
 import { sha512 } from "js-sha512";
 
 const route: string = "/api/v1/auth"
@@ -16,8 +16,8 @@ export type ValidateResponse = {
     code: -2 | -1 | 0 | 1
 };
 
-async function login_user(email: string, password: string): Promise<LoginResponse> {
-    const url = http_url + route + "/login";
+export async function logInUser(email: string, password: string): Promise<LoginResponse> {
+    const url = httpURL + route + "/login";
 
     const hash: string = sha512(password);
 
@@ -49,8 +49,8 @@ async function login_user(email: string, password: string): Promise<LoginRespons
     }
 }
 
-async function logout_user(session: string): Promise<LogoutResponse> {
-    const url: string = http_url + route + "/logout" + "?"  + new URLSearchParams({
+export async function logOutUser(session: string): Promise<LogoutResponse> {
+    const url: string = httpURL + route + "/logout" + "?"  + new URLSearchParams({
         cookie: session,
         cookieless: "true"
     }).toString();
@@ -71,8 +71,8 @@ async function logout_user(session: string): Promise<LogoutResponse> {
     }
 }
 
-async function validate_user(session: string){
-    const url: string = http_url + route + "/validate" + "?" + new URLSearchParams({
+export async function validateUser(session: string){
+    const url: string = httpURL + route + "/validate" + "?" + new URLSearchParams({
         cookie: session,
         cookieless: "true"
     }).toString();
@@ -93,5 +93,3 @@ async function validate_user(session: string){
     }
     
 }
-
-export { login_user, validate_user, logout_user };
