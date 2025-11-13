@@ -66,8 +66,6 @@ export default function TabLayout() {
 					options={{
 						title: '',
 						tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-						
-					
 					}}
 				/>
 				<Tabs.Screen
@@ -77,7 +75,13 @@ export default function TabLayout() {
 						tabBarIcon: ({ color }) => <TabBarIcon name="bullhorn" color={color} />,
 					}}
 				/>
-
+				<Tabs.Screen
+					name="schedule"
+					options={{
+						title: '',
+						tabBarIcon: ({ color }) => <TabBarIcon name="calendar-o" color={color} />,
+					}}
+				/>
 				<Tabs.Screen
 					name="cafeteria"
 					options={{

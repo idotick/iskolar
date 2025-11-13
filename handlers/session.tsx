@@ -25,7 +25,7 @@ export async function validateSession(): Promise<number> {
   return 0;
 }
 
-export async function requestLogin(email: string, password: string): Promise<number>{
+export async function requestLogIn(email: string, password: string): Promise<number>{
     const res = await logInUser(email, password);
 
     if (res.code == 1){  
@@ -35,7 +35,7 @@ export async function requestLogin(email: string, password: string): Promise<num
         return -3;
       }
 
-      return requestLogin(email, password);
+      return requestLogIn(email, password);
     }
     
     if (res.code){
@@ -84,7 +84,7 @@ export async function requestRegister(id: string, name: string, email: string, p
     return 0;
 }
 
-export async function requestLogout(): Promise<number>{
+export async function requestLogOut(): Promise<number>{
     const session: string | null = await AsyncStorage.getItem("session");
   
     if (session == null){

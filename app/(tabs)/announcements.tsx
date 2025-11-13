@@ -17,7 +17,7 @@ export default function AnnouncementScreen() {
 				</View>
 			</RowContainer>
 
-			<SearchBar />
+			<SearchBar placeholder='Search school announcements' />
 
 			<AnnnouncementList
 				data={[

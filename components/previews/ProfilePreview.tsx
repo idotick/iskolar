@@ -1,17 +1,19 @@
+import { useEffect, useState } from "react";
+import { ActivityIndicator } from "react-native"
+
 import RowContainer from "../containers/RowContainer";
 import Container from "../containers/Container";
 import ProfileCard from "../cards/ProfileCard";
 import { Text, StyleSheet } from "react-native";
 import { Card } from "../cards/Card";
-import { useEffect, useState } from "react";
-import { request_user_info, UserInfo } from "@/handlers/user";
-import { ActivityIndicator } from "react-native"
+
+import { requestUserInfo, UserInfo } from "@/handlers/user";
 
 export default function ProfilePreview(){
     const [ userData, setUserData ] = useState<UserInfo | null>(null);
 
     async function setupUserData(){
-        const data = await request_user_info();
+        const data = await requestUserInfo();
 
         if (!data){
             return;
