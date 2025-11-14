@@ -1,4 +1,4 @@
-import { httpURL } from "./defaults";
+import { httpsURL } from "./defaults";
 
 import { sha512 } from "js-sha512";
 
@@ -12,7 +12,7 @@ export type AuthReceipt = {
 };
 
 export async function registerUser(id: string, email: string, name: string, password: string): Promise<AuthReceipt | null> {
-    const url: string = httpURL + route + "/register";
+    const url: string = httpsURL + route + "/register";
     
     const hash: string = sha512(password);
 
@@ -55,14 +55,14 @@ export async function resolveUser(session: string, user_id: string | null = null
     let url: string;
 
     if (user_id == null){
-        url = httpURL + route + "/resolve?" + new URLSearchParams({
+        url = httpsURL + route + "/resolve?" + new URLSearchParams({
             cookie: session,
             cookieless: "true",
         });
     }
 
     else {
-        url = httpURL + route + "/resolve?" + new URLSearchParams({
+        url = httpsURL + route + "/resolve?" + new URLSearchParams({
             cookie: session,
             cookieless: "true",
             uuid: user_id
@@ -88,7 +88,7 @@ export async function resolveUser(session: string, user_id: string | null = null
 }
 
 export async function resolveUserList(session: string): Promise<UserData[] | null> {
-    const url: string = httpURL + route + "/list" + "?" + new URLSearchParams({
+    const url: string = httpsURL + route + "/list" + "?" + new URLSearchParams({
             cookie: session,
             cookieless: "true"
     }).toString();

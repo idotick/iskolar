@@ -1,12 +1,12 @@
 import { OrderItem } from "@/handlers/orders";
-import { httpURL } from "./defaults";
+import { httpsURL } from "./defaults";
 
 import { FoodItem } from "@/handlers/item";
 
 const route = "/api/v1/items"
 
 export async function createItem(session: string, item: any): Promise<number> {
-    const url: string = httpURL + route + "/add?";
+    const url: string = httpsURL + route + "/add?";
     
     try {
         const res: Response = await fetch(url + new URLSearchParams({
@@ -41,7 +41,7 @@ export async function createItem(session: string, item: any): Promise<number> {
 }
 
 export async function destroyItem(session: string, uuid: string): Promise<number> {
-    const url: string = httpURL + route + "/delete?";
+    const url: string = httpsURL + route + "/delete?";
     
     try {
         const res: Response= await fetch(url + new URLSearchParams({
@@ -73,7 +73,7 @@ export async function destroyItem(session: string, uuid: string): Promise<number
 }
 
 export async function resolveItemList(): Promise<Array<FoodItem> | null> {
-    const url: string = httpURL + route + "/list";
+    const url: string = httpsURL + route + "/list";
 
     try {
         const res = await fetch(url);
@@ -95,7 +95,7 @@ export async function resolveItemList(): Promise<Array<FoodItem> | null> {
 }
 
 export async function resolveItem(id: string): Promise<FoodItem | null>{
-    const url: string = httpURL + route + "/resolve?" + new URLSearchParams({
+    const url: string = httpsURL + route + "/resolve?" + new URLSearchParams({
         uuid: id
     });
 
@@ -121,7 +121,7 @@ export async function resolveItem(id: string): Promise<FoodItem | null>{
 export async function resolveItems(items: OrderItem[]): Promise<FoodItem[] | null>{
     try {
         const requests = items.map((item: OrderItem) => {
-            const url: string =  httpURL + route + "/resolve?" + new URLSearchParams({ uuid: item.id }).toString()
+            const url: string =  httpsURL + route + "/resolve?" + new URLSearchParams({ uuid: item.id }).toString()
             return fetch(url);
         });
 

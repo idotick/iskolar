@@ -2,7 +2,7 @@ import { StyleSheet, View, ScrollView, ViewProps } from "react-native";
 
 export function ScrollablePage({ children, style }: ViewProps) {
 	return (
-		<ScrollView style={[styles.screen_container, style]}>
+		<ScrollView style={[styles.screenContainer, style]}>
 			<View style={[styles.container]}> 
 			{ children } 
 			</View>
@@ -10,10 +10,10 @@ export function ScrollablePage({ children, style }: ViewProps) {
 		
 	);
 }
+
 export function Page({ children, style }: ViewProps) {
 	return (
-		<View style={[styles.screen_container, style]}>
-
+		<View style={[styles.screenContainer, style]}>
 			<View style={[styles.container]}> 
 			{ children } 
 			</View>
@@ -24,7 +24,7 @@ export function Page({ children, style }: ViewProps) {
 
 
 const styles = StyleSheet.create({
-	screen_container: {
+	screenContainer: {
 		flex: 1,
 
 		width: "100%",

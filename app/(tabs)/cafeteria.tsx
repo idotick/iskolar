@@ -2,6 +2,7 @@
 import { Text, View, StyleSheet } from 'react-native';
 
 import { Page } from '@/components/Page';
+
 import PageContainer from '@/components/containers/PageContainer';
 
 export default function HomeScreen() {
@@ -10,7 +11,6 @@ export default function HomeScreen() {
 
 			<Page>
 
-		
 
 			</Page>
 

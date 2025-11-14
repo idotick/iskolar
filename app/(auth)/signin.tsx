@@ -11,15 +11,21 @@ import AuthButton from '@/components/form/AuthButton';
 import PageContainer from '@/components/containers/PageContainer';
 import AuthAlert from '@/components/alerts/AuthAlert';
 import { validateEmail } from '@/util/helpers';
-import { requestLogIn } from '@/handlers/session';
+import { LoginData, requestLogin } from '@/handlers/session';
 
 const background_image = require('@/assets/images/background.jpg');
 const title_text = require('@/assets/images/iskolar-text.png');
 const ribbon = require('@/assets/images/ribbon.svg');
 
-export default function LogInScreen() {
-	const [email, setEmail ] = useState<string>('');
-	const [password, setPassword ] = useState<string>('');
+export default function LoginScreen() {
+	const [data, setData] = useState<LoginData>({
+        email: "",
+        password: "",
+    });
+
+    function setLoginField(field: keyof LoginData, value: string) {
+        setData({...data, [field]: value});
+    }
 
     const [authenticated, set_authenticated] = useState<boolean>(false);
 
@@ -35,13 +41,8 @@ export default function LogInScreen() {
         setTimeout(stopAlert, 2000);
     }
 
-    const onLogIn = async () => {
-        if (!validateEmail(email)){
-            startAlert("Invalid email");
-            return;
-        }
-
-        const code = await requestLogIn(email, password);
+    const onLogin = async () => {
+        const code = await requestLogin(data);
 
         if (code == -1){
             startAlert("Unable to connect to network.");
@@ -71,12 +72,12 @@ export default function LogInScreen() {
             
             <Image source={title_text} style={styles.title} />
 
-            <FormInput name={"email"} content={email} onChange={setEmail}/>
-            <FormInput name={"password"} content={password} onChange={setPassword} secured/>
+            <FormInput name={"email"} content={data.email} onChange={(value: string) => setLoginField("email", value)}/>
+            <FormInput name={"password"} content={data.password} onChange={(value: string) => setLoginField("password", value)} secured/>
 
             <AuthAlert style={styles.alert} message={alert}/>
 
-            <AuthButton name={"sign in"} onAction={onLogIn} style={styles.button} />
+            <AuthButton name={"sign in"} onAction={onLogin} style={styles.button} />
 
             <Link href="/(auth)/signup" style={styles.link}>
                 <Text style={styles.link_text}> Don't have an account? </Text>

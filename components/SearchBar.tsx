@@ -4,7 +4,6 @@ import { TextInput, StyleSheet } from 'react-native';
 
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-
 import RowContainer from './containers/RowContainer';
 
 export default function SearchBar({ placeholder='' } : { placeholder? : string}) {

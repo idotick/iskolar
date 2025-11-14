@@ -1,6 +1,6 @@
 import { OrderItem } from "@/handlers/orders";
 
-import { httpURL } from "./defaults";
+import { httpsURL } from "./defaults";
 
 const route: string = "/api/v1/transactions"
 
@@ -15,7 +15,7 @@ function packItemData(items: OrderItem[]){
 }
 
 export async function createTransaction(session: string, uuid: string, items: OrderItem[]){
-    const url: string = httpURL + route + "/add?" + new URLSearchParams({
+    const url: string = httpsURL + route + "/add?" + new URLSearchParams({
         cookie: session,
         cookieless: "true"
     }).toString();

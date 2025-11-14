@@ -1,4 +1,4 @@
-import { httpURL } from "./defaults"
+import { httpsURL } from "./defaults"
 
 const route: string = "/api/v1/bank"
 
@@ -12,7 +12,7 @@ export type BalanceResponse = {
 };  
 
 export async function addCredit(session: string, uuid: string, amount: number): Promise<CreditResponse> {
-    const url = httpURL + route + "/credit?" + new URLSearchParams({
+    const url: string = httpsURL + route + "/credit?" + new URLSearchParams({
         cookie: session,
         cookieless: "true"
     }).toString();
@@ -40,7 +40,7 @@ export async function addCredit(session: string, uuid: string, amount: number): 
 }
 
 export async function getBalance(session: string): Promise<BalanceResponse> {
-    const url: string = httpURL + route + "/balance" + "?" + new URLSearchParams({
+    const url: string = httpsURL + route + "/balance" + "?" + new URLSearchParams({
         cookie: session,
         cookieless: "true"
     }).toString();

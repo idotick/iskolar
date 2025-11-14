@@ -1,4 +1,5 @@
-import { httpURL } from "./defaults";
+import { httpsURL } from "./defaults";
+
 import { sha512 } from "js-sha512";
 
 const route: string = "/api/v1/auth"
@@ -16,8 +17,8 @@ export type ValidateResponse = {
     code: -2 | -1 | 0 | 1
 };
 
-export async function logInUser(email: string, password: string): Promise<LoginResponse> {
-    const url = httpURL + route + "/login";
+export async function loginUser(email: string, password: string): Promise<LoginResponse> {
+    const url: string = httpsURL + route + "/login";
 
     const hash: string = sha512(password);
 
@@ -41,7 +42,9 @@ export async function logInUser(email: string, password: string): Promise<LoginR
 
         return { cookie: json.cookie, code: json.code };
 
-    } catch (err) {
+    } 
+    
+    catch (err) {
         console.log("Error while posting login request?");
         console.log(err)
 
@@ -49,8 +52,8 @@ export async function logInUser(email: string, password: string): Promise<LoginR
     }
 }
 
-export async function logOutUser(session: string): Promise<LogoutResponse> {
-    const url: string = httpURL + route + "/logout" + "?"  + new URLSearchParams({
+export async function logoutUser(session: string): Promise<LogoutResponse> {
+    const url: string = httpsURL + route + "/logout" + "?"  + new URLSearchParams({
         cookie: session,
         cookieless: "true"
     }).toString();
@@ -64,7 +67,9 @@ export async function logOutUser(session: string): Promise<LogoutResponse> {
 
         return { code: json.code };
 
-    } catch (err) {
+    } 
+    
+    catch (err) {
         console.log("Error while requesting the server to destroy session?");
 
         return { code: -1 };
@@ -72,7 +77,7 @@ export async function logOutUser(session: string): Promise<LogoutResponse> {
 }
 
 export async function validateUser(session: string){
-    const url: string = httpURL + route + "/validate" + "?" + new URLSearchParams({
+    const url: string = httpsURL + route + "/validate" + "?" + new URLSearchParams({
         cookie: session,
         cookieless: "true"
     }).toString();
@@ -84,7 +89,9 @@ export async function validateUser(session: string){
     
         return { code: json.code };
 
-    } catch (err) {
+    } 
+    
+    catch (err) {
         console.log("Error while validating session to server?");
 
         console.log(err);

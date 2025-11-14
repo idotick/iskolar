@@ -1,11 +1,46 @@
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { logInUser, LoginResponse, logOutUser, LogoutResponse, validateUser, ValidateResponse } from "@/network/auth";
+import { loginUser, LoginResponse, logoutUser, LogoutResponse, validateUser, ValidateResponse } from "@/network/auth";
 
 import { AuthReceipt, registerUser, resolveUser } from "@/network/user";
 
 import { UserInfo } from "./user"
+import { attachFullName, validateEmail, validateInitial, validateName, validatePassword, validateUserID } from "@/util/helpers";
+
+export type RegistrationData = {
+    firstName: string,
+    midInitial: string,
+    lastName: string,
+    email: string,
+    userID: string,
+    password: string
+};
+
+export type LoginData = {
+    email: string,
+    password: string
+};
+
+export function validateRegistrationData(data: RegistrationData){
+    if (!validateEmail(data.email)){
+        return false;
+    }
+
+    if (!validatePassword(data.password)){
+        return false;
+    }
+
+    if (!validateUserID(data.userID)){
+        return false;
+    }
+
+    if (!validateName(data.firstName) && !validateInitial(data.midInitial) && !validateName(data.lastName)){
+        return false;
+    }
+
+    return true;
+}
 
 export async function validateSession(): Promise<number> {
   const session: string | null = await AsyncStorage.getItem('session');
@@ -25,17 +60,17 @@ export async function validateSession(): Promise<number> {
   return 0;
 }
 
-export async function requestLogIn(email: string, password: string): Promise<number>{
-    const res = await logInUser(email, password);
+export async function requestLogin(data: LoginData): Promise<number>{
+    const res = await loginUser(data.email, data.password);
 
     if (res.code == 1){  
-      const fix: LogoutResponse = await logOutUser("");
+      const fix: LogoutResponse = await logoutUser("");
   
       if (fix.code){
         return -3;
       }
 
-      return requestLogIn(email, password);
+      return requestLogin(data);
     }
     
     if (res.code){
@@ -51,22 +86,27 @@ export async function requestLogIn(email: string, password: string): Promise<num
     return 0;
 }
 
-export async function requestRegister(id: string, name: string, email: string, password: string): Promise<number>{
+export async function requestRegister(data: RegistrationData): Promise<number>{
+    if (!validateRegistrationData(data)){
+      return 1;
+    }
+
+    const name: string = attachFullName(data.firstName, data.midInitial, data.lastName)
   
-    const res: AuthReceipt | null = await registerUser(id, email, name, password);
+    const res: AuthReceipt | null = await registerUser(data.userID, data.email, name, data.password);
 
     if (!res){
       return -1;
     }
 
     if (res.code == 1){
-      const fix = await logOutUser("");
+      const fix = await logoutUser("");
   
       if (fix.code){
         return -3;
       }
 
-      return requestRegister(id, name, email, password);
+      return requestRegister(data);
     }
 
     if (res.code){
@@ -84,14 +124,14 @@ export async function requestRegister(id: string, name: string, email: string, p
     return 0;
 }
 
-export async function requestLogOut(): Promise<number>{
+export async function requestLogout(): Promise<number>{
     const session: string | null = await AsyncStorage.getItem("session");
   
     if (session == null){
       return -2;
     }
   
-    const res: LogoutResponse = await logOutUser(session);
+    const res: LogoutResponse = await logoutUser(session);
     
     return res.code;
 }

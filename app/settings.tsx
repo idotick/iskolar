@@ -5,15 +5,15 @@ import PageContainer from '@/components/containers/PageContainer';
 import { Page } from '@/components/Page';
 import SettingContainer from '@/components/containers/SettingContainer';
 import AuthButton from '@/components/form/AuthButton';
-import { requestLogOut } from '@/handlers/session';
+import { requestLogout } from '@/handlers/session';
 import { useState } from 'react';
 import { Redirect } from 'expo-router';
 
 export default function SettingsScreen() {
   const [ authenticated, setAuthenticated ] = useState<boolean>(true);
 
-  const onLogOut = async () => {
-    const code: number = await requestLogOut();
+  const onLogout = async () => {
+    const code: number = await requestLogout();
 
     setAuthenticated(false);
 
@@ -33,7 +33,7 @@ export default function SettingsScreen() {
           <Text> </Text>
         </SettingContainer>
 
-        <AuthButton name="signout" onAction={onLogOut} style={styles.button} />
+        <AuthButton name="signout" onAction={onLogout} style={styles.button} />
 
       </Page>
     </PageContainer>

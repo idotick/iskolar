@@ -2,38 +2,40 @@ import { useState } from 'react';
 
 import { View, StyleSheet, Text } from 'react-native';
 
+import { Link, Redirect } from 'expo-router';
+
 import { ImageBackground } from 'expo-image';
+
+import { RegistrationData, requestRegister, validateRegistrationData, } from '@/handlers/session';
 
 import { FormInput, SmallFormInput } from '@/components/form/Input';
 import AuthButton from '@/components/form/AuthButton';
-
-import { requestLogIn, requestRegister, } from '@/handlers/session';
-import { Link, Redirect } from 'expo-router';
 import PageContainer from '@/components/containers/PageContainer';
-import { getFullName } from '@/util/helpers';
 
 const background_image = require('@/assets/images/background.jpg');
 
 export default function RegisterScreen() {
-    const [fName, setFName ] = useState<string>('');
-    const [mName, setMName ] = useState<string>('');
-    const [lName, setLName ] = useState<string>('');
+    const [data, setData] = useState<RegistrationData>({
+        firstName: "",
+        midInitial: "",
+        lastName: "",
+        email: "",
+        userID: "",
+        password: ""
+    });
 
-	const [email, setEmail ] = useState<string>('');
-	
-    const [userID, setUserID ] = useState<string>('14-2021-075');
-
-    const [password, setPassword ] = useState<string>('');
-    const [cfPassword, setCFPassword ] = useState<string>('');
+    function setRegistrationField(field: keyof RegistrationData, value: string) {
+        setData({...data, [field]: value});
+    }
 
     const [authenticated, setAuthenticated] = useState<boolean>(false);
 
     async function onRegister() {
-        if (password != cfPassword){
+        if (!validateRegistrationData(data)){
             return;
         }
 
-        const code = await requestRegister(userID, getFullName(fName, mName, lName), email, password);
+        const code = await requestRegister(data);
 
         if (code){
             return;
@@ -56,17 +58,16 @@ export default function RegisterScreen() {
 
             <View style={styles.form}>
                 <View style={{alignSelf: "center", flexDirection: "row"}}>
-                    <SmallFormInput name={"first name"} content={fName} onChange={setFName} style={{marginRight: "1%"}}/>
-                    <SmallFormInput name={"middle name"} content={mName} onChange={setMName} style={{marginLeft: "1%"}}/>
+                    <SmallFormInput name={"first name"} content={data.firstName} onChange={(value: string) => setRegistrationField("firstName", value)} style={{marginRight: "1%"}}/>
+                    <SmallFormInput name={"middle initial"} content={data.midInitial} onChange={(value: string) => setRegistrationField("midInitial", value)} style={{marginLeft: "1%"}}/>
                 </View>
 
-                <FormInput name={"last name"} content={lName} onChange={setLName}/>
+                <FormInput name={"last name"} content={data.lastName} onChange={(value: string) => setRegistrationField("lastName", value)}/>
 
-                <FormInput name={"email"} content={email} onChange={setEmail}/>
+                <FormInput name={"email"} content={data.email} onChange={(value: string) => setRegistrationField("email", value)}/>
 
-                <FormInput name={"password"} content={password} onChange={setPassword} secured/>
-                <FormInput name={"confirm_password"} content={cfPassword} onChange={setCFPassword} secured/>
-
+                <FormInput name={"password"} content={data.password} onChange={(value: string) => setRegistrationField("password", value)} secured/>
+        
                 <AuthButton name={"sign up"} onAction={onRegister} style={styles.button} />
 
                 <Link href="/(auth)/signin" style={styles.link}>

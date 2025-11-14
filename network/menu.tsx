@@ -1,11 +1,11 @@
-import { httpURL } from "./defaults";
+import { httpsURL } from "./defaults";
 
 import { FoodItem } from '@/handlers/item';
 
 const route = "/api/v1/menu"
 
 export async function resolveMenuList(): Promise<FoodItem[] | null> {
-    const url = httpURL + route + "/resolve";
+    const url: string = httpsURL + route + "/resolve";
 
     try {
         const res: Response = await fetch(url);
@@ -26,7 +26,7 @@ export async function resolveMenuList(): Promise<FoodItem[] | null> {
 }
 
 export async function addMenuItem(session: string, uuid: string){
-    const url = httpURL + route + "/add?";
+    const url: string = httpsURL + route + "/add?";
 
     try {
         const res: Response = await fetch(url + new URLSearchParams({
@@ -59,9 +59,7 @@ export async function addMenuItem(session: string, uuid: string){
 }
 
 export async function removeMenuItem(session: string, uuid: string){
-    const url = httpURL + route + "/remove?";
-
-    console.log("Posting menu remove request to server.");
+    const url: string = httpsURL + route + "/remove?";
 
     try {
         const res: Response = await fetch(url + new URLSearchParams({
@@ -94,7 +92,7 @@ export async function removeMenuItem(session: string, uuid: string){
 }
 
 export async function clearMenu(session: string){
-    const url = httpURL + route + "/clear?";
+    const url: string = httpsURL + route + "/clear?";
 
     try {
         const res: Response = await fetch(url + new URLSearchParams({

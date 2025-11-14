@@ -82,10 +82,22 @@ export default function TabLayout() {
 						tabBarIcon: ({ color }) => <TabBarIcon name="calendar-o" color={color} />,
 					}}
 				/>
+
+
 				<Tabs.Screen
 					name="cafeteria"
 					options={{
 						title: '',
+						href: null,
+						tabBarIcon: ({ color }) => <Ionicons name="fast-food" size={28} style={{marginBottom: 3}} color={color}/>,
+					}}
+				/>
+
+				<Tabs.Screen
+					name="profile"
+					options={{
+						title: '',
+						href: null,
 						tabBarIcon: ({ color }) => <Ionicons name="fast-food" size={28} style={{marginBottom: 3}} color={color}/>,
 					}}
 				/>

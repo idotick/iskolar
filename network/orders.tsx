@@ -1,11 +1,11 @@
-import { httpURL, wsURL } from "./defaults";
+import { httpsURL, wsURL } from "./defaults";
 
 import { OrderData, OrderItem } from "@/handlers/orders";
 
 const route = "/api/v1/orders";
 
 export async function resolveMonitor(session: string, uuid: string): Promise<WebSocket | null>{
-    const url = wsURL + route + "/monitor?" + new URLSearchParams({
+    const url: string = wsURL + route + "/monitor?" + new URLSearchParams({
         cookie: session,
         cookieless: "true"
     }).toString();
@@ -25,7 +25,7 @@ export async function resolveMonitor(session: string, uuid: string): Promise<Web
 }
 
 export async function createOrder(session: string, order: Array<OrderItem>): Promise<string | null> {
-    const url: string = httpURL + route + "/create"
+    const url: string = httpsURL + route + "/create"
 
     const formatted_order = order.map((item) => {
         return {uuid: item.id, amount: item.amount};
@@ -61,7 +61,7 @@ export async function createOrder(session: string, order: Array<OrderItem>): Pro
 }
 
 export async function resolveOrder(session: string, oid: string): Promise<OrderData | null> {
-    const url: string = httpURL + route + "/resolve?" + new URLSearchParams({
+    const url: string = httpsURL + route + "/resolve?" + new URLSearchParams({
         cookie: session,
         cookieless: "true",
         oid: oid
@@ -88,7 +88,7 @@ export async function resolveOrder(session: string, oid: string): Promise<OrderD
 }
 
 export async function updateOrder(session: string, order_id: string, status: number) {
-    const url: string = httpURL + route + "/update?" + new URLSearchParams({
+    const url: string = httpsURL + route + "/update?" + new URLSearchParams({
         cookie: session,
         cookieless: "true"
     }).toString();
