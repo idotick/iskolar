@@ -1,14 +1,15 @@
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
 
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import Entypo from "@expo/vector-icons/Entypo";
 import { Link, Tabs } from 'expo-router';
 
-import AuthProvider from '@/contexts/AuthContext';
-import { Ionicons } from '@expo/vector-icons';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import Entypo from "@expo/vector-icons/Entypo";
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
+import AuthProvider from '@/contexts/AuthContext';
+
 function TabBarIcon(props: {
 	name: React.ComponentProps<typeof FontAwesome>['name'];
 	color: string;
@@ -46,17 +47,13 @@ export default function TabLayout() {
 					),
 					
 					headerRight: () => (
-							<View style={{ marginRight: 25, backgroundColor: 'transparent', flexDirection: "row", gap: 10 }}>
+							<View style={{ marginRight: 4, backgroundColor: 'transparent', flexDirection: "row", gap: 10 }}>
 								<Link href="/notifications" asChild>
-									<Pressable onPress={() => console.log("notifs")}>
-										<Entypo name='bell' size={24} color='#fff' />
-									</Pressable>
+									<Entypo name='bell' size={24} color='#fff' />
 								</Link>
 
 								<Link href="/settings" asChild>
-									<Pressable onPress={() => console.log("settings")}>
-										<Entypo name='cog' size={24} color='#fff' />
-									</Pressable>
+									<Entypo name='cog' size={24} color='#fff' />
 								</Link>
 							</View>
 					),
@@ -85,6 +82,15 @@ export default function TabLayout() {
 
 
 				<Tabs.Screen
+					name="items"
+					options={{
+						title: '',
+						tabBarIcon: ({ color }) => <MaterialCommunityIcons name="bag-personal" size={28} color={color} />,
+					}}
+				/>
+
+
+				<Tabs.Screen
 					name="cafeteria"
 					options={{
 						title: '',
@@ -92,6 +98,7 @@ export default function TabLayout() {
 						tabBarIcon: ({ color }) => <Ionicons name="fast-food" size={28} style={{marginBottom: 3}} color={color}/>,
 					}}
 				/>
+
 
 				<Tabs.Screen
 					name="profile"

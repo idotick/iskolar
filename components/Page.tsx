@@ -13,11 +13,11 @@ export function ScrollablePage({ children, style }: ViewProps) {
 
 export function Page({ children, style }: ViewProps) {
 	return (
-		<View style={[styles.screenContainer, style]}>
+		<ScrollView style={[styles.screenContainer, style]}>
 			<View style={[styles.container]}> 
 			{ children } 
 			</View>
-		</View>
+		</ScrollView>
 		
 	);
 }
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 		width: "100%",
 		height: "100%",
 
-		backgroundColor: '#393b42ff',
+		backgroundColor: '#353535ff',
 
 	},
 
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
 
 	container: {
 		flex: 1,
-		
-		margin: 20,
+
+		padding: 8
 	},
 })

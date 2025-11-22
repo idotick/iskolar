@@ -41,6 +41,11 @@ export function validatePassword(text: string): boolean {
   return true;
 }
 
-export function attachFullName(fName: string, mInitial: string, lName: string): string{
+export function attachFullName(fName: string, mInitial: string, lName: string): string {
   return fName + " " + mInitial + " . " + lName;
+}
+
+export function capitalize(text: string): string {
+    if (!text) return "";
+    return text.charAt(0).toUpperCase() + text.slice(1);
 }

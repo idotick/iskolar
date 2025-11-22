@@ -2,16 +2,128 @@ import { Text, View, Platform, StyleSheet } from 'react-native';
 
 
 import { StatusBar } from 'expo-status-bar';
+import PageContainer from '@/components/containers/PageContainer';
+import { Page } from '@/components/Page';
+import NotificationList, { NotifData } from '@/components/notifications/NotificationList';
+
 
 export default function ModalScreen() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Modal</Text>
-      <View style={styles.separator} />
+  const data: NotifData[] = [
+    {
+      id: "a1",
+      name: "yes",
+      content: "yes"
+    },
 
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
-      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
-    </View>
+    {
+      id: "a2",
+      name: "yes",
+      content: "yes"
+    },
+
+    {
+      id: "a3",
+      name: "yes",
+      content: "yes"
+    },
+
+    {
+      id: "a1",
+      name: "yes",
+      content: "yes"
+    },
+
+    {
+      id: "a2",
+      name: "yes",
+      content: "yes"
+    },
+
+    {
+      id: "a3",
+      name: "yes",
+      content: "yes"
+    },
+
+    {
+      id: "a1",
+      name: "yes",
+      content: "yes"
+    },
+
+    {
+      id: "a2",
+      name: "yes",
+      content: "yes"
+    },
+
+    {
+      id: "a3",
+      name: "yes",
+      content: "yes"
+    },
+
+    {
+      id: "a1",
+      name: "yes",
+      content: "yes"
+    },
+
+    {
+      id: "a2",
+      name: "yes",
+      content: "yes"
+    },
+
+    {
+      id: "a3",
+      name: "yes",
+      content: "yes"
+    },
+
+    {
+      id: "a1",
+      name: "yes",
+      content: "yes"
+    },
+
+    {
+      id: "a2",
+      name: "yes",
+      content: "yes"
+    },
+
+    {
+      id: "a3",
+      name: "yes",
+      content: "yes"
+    },
+
+    {
+      id: "a1",
+      name: "yes",
+      content: "yes"
+    },
+
+    {
+      id: "a2",
+      name: "yes",
+      content: "yes"
+    },
+
+    {
+      id: "a3",
+      name: "yes",
+      content: "yes"
+    },
+  ];
+
+  return (
+    <PageContainer>
+      <Page>
+        <NotificationList data={data}/>
+      </Page>
+    </PageContainer>
   );
 }
 
@@ -21,10 +133,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
   title: {
     fontSize: 20,
     fontWeight: 'bold',
   },
+
   separator: {
     marginVertical: 30,
     height: 1,

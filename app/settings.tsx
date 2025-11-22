@@ -8,6 +8,8 @@ import AuthButton from '@/components/form/AuthButton';
 import { requestLogout } from '@/handlers/session';
 import { useState } from 'react';
 import { Redirect } from 'expo-router';
+import SectionLink from '@/components/sections/SectionLink';
+import { Entypo, MaterialIcons } from '@expo/vector-icons';
 
 export default function SettingsScreen() {
   const [ authenticated, setAuthenticated ] = useState<boolean>(true);
@@ -29,11 +31,19 @@ export default function SettingsScreen() {
   return (
     <PageContainer>
       <Page>
+        <SectionLink href={"/profile"} name={"profile"} description={"Your really cool information"} icon={
+            <MaterialIcons name="manage-accounts" size={48}/>
+        }/>
+
+        <SectionLink href={"/preferences"} name={"preferences"} description={"Change how the app feels."} icon={
+            <MaterialIcons name="format-paint" size={48}/>
+        }/>
+
         <SettingContainer> 
           <Text> </Text>
         </SettingContainer>
 
-        <AuthButton name="signout" onAction={onLogout} style={styles.button} />
+        {/* <AuthButton name="signout" onAction={onLogout} style={styles.button} /> */}
 
       </Page>
     </PageContainer>

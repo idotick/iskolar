@@ -63,17 +63,13 @@ function RootLayoutNav() {
         ),
         
         headerRight: () => (
-            <View style={{ marginRight: 25, backgroundColor: 'transparent', flexDirection: "row", gap: 10 }}>
+            <View style={{ marginRight: 4, backgroundColor: 'transparent', flexDirection: "row", gap: 10 }}>
               <Link href="/notifications" asChild>
-                <Pressable onPress={() => console.log("notifs")}>
-                  <Entypo name='bell' size={24} color='#fff' />
-                </Pressable>
+                <Entypo name='bell' size={24} color='#fff' />
               </Link>
 
               <Link href="/settings" asChild>
-                <Pressable onPress={() => console.log("settings")}>
-                  <Entypo name='cog' size={24} color='#fff' />
-                </Pressable>
+                <Entypo name='cog' size={24} color='#fff' />
               </Link>
             </View>
         ),
@@ -82,6 +78,7 @@ function RootLayoutNav() {
     }>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+      <Stack.Screen name="(settings)" options={{ headerShown: false }} />
       <Stack.Screen name="settings" options={{ presentation: 'modal', title: ''}} />
       <Stack.Screen name="notifications" options={{ presentation: 'modal',  title: '' }} />
     </Stack>

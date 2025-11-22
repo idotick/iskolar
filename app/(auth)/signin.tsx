@@ -10,8 +10,10 @@ import { FormInput } from '@/components/form/Input';
 import AuthButton from '@/components/form/AuthButton';
 import PageContainer from '@/components/containers/PageContainer';
 import AuthAlert from '@/components/alerts/AuthAlert';
-import { validateEmail } from '@/util/helpers';
+
 import { LoginData, requestLogin } from '@/handlers/session';
+
+import { validateEmail } from '@/util/helpers';
 
 const background_image = require('@/assets/images/background.jpg');
 const title_text = require('@/assets/images/iskolar-text.png');
