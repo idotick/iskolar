@@ -30,7 +30,7 @@ export default function AnnouncementsPreview( { data, style }: AnnouncementsPrev
             <Text style={[styles.cardSubtext, {marginLeft: 24} ] }> September 8, 2025 </Text>
         </RowContainer>
 
-        <FlatList style={styles.list} data={data} renderItem={({ item }) => {
+        <FlatList style={styles.list} data={data} scrollEnabled={false} renderItem={({ item }) => {
             return (<AnnouncementPreviewItem content={item} />);
         }} />
 

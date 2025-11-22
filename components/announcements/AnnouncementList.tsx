@@ -12,6 +12,7 @@ export default function AnnnouncementList( { data, style } : AnnnouncementListPr
 			data={data}
 			contentContainerStyle={styles.container}
 			style={[{ flex: 1 }, style]}
+			scrollEnabled={false}
 			renderItem={({ item }) => (
 				<AnnouncementOverview
 					recent={item.recent}

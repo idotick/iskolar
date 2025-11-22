@@ -55,6 +55,7 @@ export default function PagedContainer( { pages, selected=0, style, containerSty
 				<FlatList
 					data={children}
 					renderItem={render_pages}
+					scrollEnabled={false}
 				/>
 			</Container>
 		</Container>

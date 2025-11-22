@@ -11,7 +11,7 @@ import { useFonts } from 'expo-font';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Entypo } from '@expo/vector-icons';
 
-function SettingsLayout() {
+export default function SettingsLayout() {
 
   return (
     <Stack screenOptions={
