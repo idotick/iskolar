@@ -21,20 +21,10 @@ function TabBarIcon(props: {
 		<View style={{}}>
 			<FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />
 		</View>	
-		);
+	);
 }
 
 export default function DrawerLayout() {
-	
-
-	const router: Router = useRouter();
-
-	const [ active, setActive ] = useState<string>("home");
-
-	function returnToPrevious(){
-		router.back();
-	}
-
 	return (
 		<PaperProvider>
 			<AuthProvider>
@@ -42,8 +32,7 @@ export default function DrawerLayout() {
 					screenOptions={{
 						headerShown: false
 					}}
-				 drawerContent={props => <PaperDrawer {...props} />}
-				
+				 	drawerContent={props => <PaperDrawer {...props} />}
 				/>
 			</AuthProvider>
 		</PaperProvider>

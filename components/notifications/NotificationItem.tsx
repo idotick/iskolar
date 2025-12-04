@@ -1,14 +1,17 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, ViewStyle } from "react-native";
 import { NotifData } from "./NotificationList";
 import { capitalize } from "@/util/helpers";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 type NotificationItemProps = {
-    data: NotifData
+    data: NotifData,
+    style?: ViewStyle
 };
 
 
-export default function NotificationItem( { data }: NotificationItemProps ){
-    return (<View style={styles.container}>
+export default function NotificationItem( { data, style }: NotificationItemProps ){
+    return (<View style={[styles.container, style]}>
+        <Ionicons name={"megaphone"} size={18}/>
         <Text style={styles.label}>
             {capitalize(data.name)}
         </Text>
@@ -16,15 +19,21 @@ export default function NotificationItem( { data }: NotificationItemProps ){
 }
 const styles = StyleSheet.create({
     container: {
+        flexDirection: "row",
 
+        margin: 8,
         padding: 12,
 
-        marginVertical: 1,
+        gap: 12,
+
+        borderRadius: 18,
         
-        backgroundColor: "white"
+        backgroundColor: "white",
+        
     },
 
     label: {
-
+        fontSize: 16,
+        fontWeight: "bold"
     }
 })

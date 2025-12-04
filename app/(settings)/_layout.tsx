@@ -14,18 +14,9 @@ import { Entypo } from '@expo/vector-icons';
 export default function SettingsLayout() {
 
   return (
-    <Stack screenOptions={
-      {
-        headerStyle: { backgroundColor: '#161618ff' },
-        headerLeft: () => (
-            <View style={{ backgroundColor: 'transparent', marginLeft: 25 }}>
-              <Text style={{ fontSize: 28.6, fontWeight: "bold", color: "white" }}>iskolar</Text>
-            </View>
-        ),
-
-        headerBackVisible: false
-      }
-    }>
+    <Stack screenOptions={{
+        headerShown: false
+    }}>
       <Stack.Screen name="profile" options={{ presentation: 'modal',  title: '' }} />
       <Stack.Screen name="preferences" options={{ presentation: 'modal',  title: '' }} />
     </Stack>

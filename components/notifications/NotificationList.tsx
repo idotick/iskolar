@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View, ViewProps, ViewStyle } from "react-native";
 import NotificationItem from "./NotificationItem";
 
 export type NotifData = {
@@ -8,12 +8,13 @@ export type NotifData = {
 };
 
 type NotificationListProps = {
-    data: NotifData[]
+    data: NotifData[],
+    style?: ViewStyle
 };
 
-export default function NotificationList( { data }: NotificationListProps ){
+export default function NotificationList( { data, style }: NotificationListProps ){
 
-    return (<View style={styles.container}>
+    return (<View style={[styles.container, style]}>
         <FlatList style={styles.list} data={data} scrollEnabled={false} renderItem={({item}) => {
             return (<NotificationItem data={item}/>);
         }}>

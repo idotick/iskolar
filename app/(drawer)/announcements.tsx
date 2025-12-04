@@ -5,7 +5,7 @@ import Entypo from '@expo/vector-icons/Entypo';
 import SearchBar from '@/components/SearchBar';
 import AnnnouncementList from '@/components/announcements/AnnouncementList';
 import RowContainer from '@/components/containers/RowContainer';
-import { Page } from '@/components/Page';
+import { Page } from '@/components/pages/Page';
 
 export default function AnnouncementScreen() {
 	return (

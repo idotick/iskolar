@@ -1,15 +1,20 @@
-import { Text, View, Platform, StyleSheet } from 'react-native';
-
-import { StatusBar } from 'expo-status-bar';
-import PageContainer from '@/components/containers/PageContainer';
-import { Page } from '@/components/Page';
-import SettingContainer from '@/components/containers/SettingContainer';
-import AuthButton from '@/components/form/AuthButton';
-import { requestLogout } from '@/handlers/Session';
 import { useState } from 'react';
+
+import { StyleSheet } from 'react-native';
+
 import { Redirect } from 'expo-router';
-import SectionLink from '@/components/sections/SectionLink';
+
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
+
+import { requestLogout } from '@/handlers/Session';
+
+import PageContainer from '@/components/containers/PageContainer';
+
+import AuthButton from '@/components/form/AuthButton';
+
+import SectionLink from '@/components/sections/SectionLink';
+
+import { ModalPage } from '@/components/pages/Page';
 
 export default function SettingsScreen() {
   const [ authenticated, setAuthenticated ] = useState<boolean>(true);
@@ -30,22 +35,19 @@ export default function SettingsScreen() {
   
   return (
     <PageContainer>
-      <Page>
-        <SectionLink href={"/profile"} name={"profile"} description={"Your really cool information"} icon={
-            <MaterialIcons name="manage-accounts" size={48}/>
+      <ModalPage title={"Settings"}>
+        <SectionLink href={"/profile"} name={"profile"} description={"Your really cool information"} style={{ marginTop: 8 }} icon={
+            <MaterialIcons name="manage-accounts" size={36}/>
         }/>
 
         <SectionLink href={"/preferences"} name={"preferences"} description={"Change how the app feels."} icon={
-            <MaterialIcons name="format-paint" size={48}/>
+            <MaterialIcons name="format-paint" size={36}/>
         }/>
 
-        <SettingContainer> 
-          <Text> </Text>
-        </SettingContainer>
 
         <AuthButton name="signout" onAction={onLogout} style={styles.button} />
 
-      </Page>
+      </ModalPage>
     </PageContainer>
   );
 }
@@ -59,5 +61,5 @@ const styles = StyleSheet.create({
     position: "absolute",
 
     bottom: 96,
-  }
+  },
 });

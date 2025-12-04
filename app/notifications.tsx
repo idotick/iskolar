@@ -1,10 +1,8 @@
-import { Text, View, Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-
-import { StatusBar } from 'expo-status-bar';
 import PageContainer from '@/components/containers/PageContainer';
-import { Page } from '@/components/Page';
 import NotificationList, { NotifData } from '@/components/notifications/NotificationList';
+import { ModalPage } from '@/components/pages/Page';
 
 
 export default function ModalScreen() {
@@ -14,115 +12,13 @@ export default function ModalScreen() {
       name: "yes",
       content: "yes"
     },
-
-    {
-      id: "a2",
-      name: "yes",
-      content: "yes"
-    },
-
-    {
-      id: "a3",
-      name: "yes",
-      content: "yes"
-    },
-
-    {
-      id: "a1",
-      name: "yes",
-      content: "yes"
-    },
-
-    {
-      id: "a2",
-      name: "yes",
-      content: "yes"
-    },
-
-    {
-      id: "a3",
-      name: "yes",
-      content: "yes"
-    },
-
-    {
-      id: "a1",
-      name: "yes",
-      content: "yes"
-    },
-
-    {
-      id: "a2",
-      name: "yes",
-      content: "yes"
-    },
-
-    {
-      id: "a3",
-      name: "yes",
-      content: "yes"
-    },
-
-    {
-      id: "a1",
-      name: "yes",
-      content: "yes"
-    },
-
-    {
-      id: "a2",
-      name: "yes",
-      content: "yes"
-    },
-
-    {
-      id: "a3",
-      name: "yes",
-      content: "yes"
-    },
-
-    {
-      id: "a1",
-      name: "yes",
-      content: "yes"
-    },
-
-    {
-      id: "a2",
-      name: "yes",
-      content: "yes"
-    },
-
-    {
-      id: "a3",
-      name: "yes",
-      content: "yes"
-    },
-
-    {
-      id: "a1",
-      name: "yes",
-      content: "yes"
-    },
-
-    {
-      id: "a2",
-      name: "yes",
-      content: "yes"
-    },
-
-    {
-      id: "a3",
-      name: "yes",
-      content: "yes"
-    },
   ];
 
   return (
     <PageContainer>
-      <Page>
-        <NotificationList data={data}/>
-      </Page>
+      <ModalPage title={"Notifications"}>
+        <NotificationList data={data} style={styles.list}/>
+      </ModalPage>
     </PageContainer>
   );
 }
@@ -139,9 +35,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
+  list: {
+    marginTop: 16,
+  }
 });

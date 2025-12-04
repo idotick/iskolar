@@ -1,7 +1,8 @@
+import { useTheme } from "@/constants/Theme";
 import { capitalize } from "@/util/helpers";
 import { Href, Link } from "expo-router";
 import { ReactNode } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, ViewStyle } from "react-native";
 
 type SectionLinkProps = {
     href: Href
@@ -9,15 +10,21 @@ type SectionLinkProps = {
     description?: string
 
     icon?: ReactNode,
+    style?: ViewStyle
 };
 
-export default function SectionLink( { href, name, description, icon}: SectionLinkProps ){
-    return (<Link style={styles.link} href={href}>
-        <View style={styles.container}>
+export default function SectionLink( { href, name, description, icon, style }: SectionLinkProps ){
+    const theme = useTheme();
+
+    const themeStyle = {
+        backgroundColor: theme.colors.primary
+    };
+    
+    return (<View style={[styles.container, style, themeStyle]}>
+        <Link href={href} style={styles.link}>
             <View style={styles.icon}>
                 {icon}
             </View>
-            
 
             <View style={styles.info}>
                 <Text style={styles.label}>
@@ -28,41 +35,40 @@ export default function SectionLink( { href, name, description, icon}: SectionLi
                     {description}
                 </Text>
             </View>
-        </View>
-    </Link>);
+        </Link>
+    </View>);
 }
 
 const styles = StyleSheet.create({
-    link: {
-        width: "100%",
-        height: 64,
+    container: {
+        alignSelf: "center",
 
-        marginBottom: 2,
+        flexDirection: "row",
+
+        width: "90%",
+        height: 48,
+
+        marginBottom: 4,
+
+        paddingTop: 8,
+        paddingLeft: 16,
+
+        borderRadius: 24,
+    },
+
+    link: {
+        flex: 1,
+        
+        width: "100%",
+        height: "100%",
     },
 
     info: {
-        flex: 1,
-
         marginTop: 10,
-        marginLeft: 12
     },
 
     icon: {
-        marginTop: 6,
-    },
-
-    container: {
-        flex: 1,
-        flexDirection: "row",
-
-        justifyContent: "center",
-
-        width: "100%",
-        height: "100%",
-
-        paddingLeft: 16,
-
-        backgroundColor: "lightgray",
+        marginTop: -8,
     },
 
     label: {

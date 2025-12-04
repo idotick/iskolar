@@ -4,14 +4,14 @@ import { ActivityIndicator, StyleSheet, Text } from "react-native";
 
 import { requestUserInfo, UserInfo } from "@/handlers/User";
 
+import PageContainer from "@/components/containers/PageContainer";
+
+import { ModalPage } from "@/components/pages/Page";
+
 import { batchToGrade, extractBatch } from "@/util/helpers";
 import { globalStyles } from "@/util/styles";
 
-import PageContainer from "@/components/containers/PageContainer";
-import { Page } from "@/components/Page";
-
-
-export default function ProfileSettingPage(){
+export default function ProfileModal(){
     const [ userData, setUserData ] = useState<UserInfo | null>(null);
     
     async function setupUserData(){
@@ -30,16 +30,16 @@ export default function ProfileSettingPage(){
 
     if (!userData){
         return (<PageContainer>
-            <Page>
+            <ModalPage title={"Preferences"}>
                 <ActivityIndicator style={styles.loading} size={"large"} color={"white"}/>
-            </Page>
+            </ModalPage>
         </PageContainer>);
     }
 
     const batch: string = extractBatch(userData.id)!;
 
     return (<PageContainer>
-        <Page>
+        <ModalPage title={"Preferences"}>
             <Text style={styles.field}>
                 <Text style={globalStyles.bold}> Name: </Text> {userData.name}
             </Text>
@@ -55,8 +55,9 @@ export default function ProfileSettingPage(){
             <Text style={styles.field}>
                 <Text style={globalStyles.bold}> Grade: </Text> Grade {batchToGrade(batch)}
             </Text>
-            
-        </Page>
+
+        </ModalPage>
+
     </PageContainer>);
 };
 

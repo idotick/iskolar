@@ -12,5 +12,5 @@ const theme = {
 };
 
 export function useTheme() {
-    return theme;
+    return (theme);
 }

@@ -1,7 +1,7 @@
 
 import { Text, View, StyleSheet } from 'react-native';
 
-import { Page } from '@/components/Page';
+import { Page } from '@/components/pages/Page';
 
 import PageContainer from '@/components/containers/PageContainer';
 

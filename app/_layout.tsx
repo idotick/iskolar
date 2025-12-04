@@ -55,25 +55,7 @@ function RootLayoutNav() {
   return (
     <Stack screenOptions={
       {
-        headerStyle: { backgroundColor: '#161618ff' },
-        headerLeft: () => (
-            <View style={{ backgroundColor: 'transparent', marginLeft: 25 }}>
-              <Text style={{ fontSize: 28, fontWeight: "bold", color: "white" }}>iskolar</Text>
-            </View>
-        ),
-        
-        headerRight: () => (
-            <View style={{ marginRight: 12, backgroundColor: 'transparent', flexDirection: "row", gap: 10 }}>
-              <Link href="/notifications" asChild>
-                <Entypo name='bell' size={24} color='#fff' />
-              </Link>
-
-              <Link href="/settings" asChild>
-                <Entypo name='cog' size={24} color='#fff' />
-              </Link>
-            </View>
-        ),
-        headerBackVisible: false
+        headerShown: false
       }
     }>
       <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
