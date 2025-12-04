@@ -1,6 +1,6 @@
-import { OrderItem } from "@/handlers/orders";
+import { OrderItem } from "@/handlers/Orders";
 
-import { httpsURL } from "./defaults";
+import { httpsURL } from "./Network";
 
 const route: string = "/api/v1/transactions"
 

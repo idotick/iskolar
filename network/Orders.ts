@@ -1,6 +1,6 @@
-import { httpsURL, wsURL } from "./defaults";
+import { httpsURL, wsURL } from "./Network";
 
-import { OrderData, OrderItem } from "@/handlers/orders";
+import { OrderData, OrderItem } from "@/handlers/Orders";
 
 const route = "/api/v1/orders";
 

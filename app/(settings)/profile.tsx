@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { ActivityIndicator, StyleSheet, Text } from "react-native";
 
-import { requestUserInfo, UserInfo } from "@/handlers/user";
+import { requestUserInfo, UserInfo } from "@/handlers/User";
 
 import { batchToGrade, extractBatch } from "@/util/helpers";
 import { globalStyles } from "@/util/styles";

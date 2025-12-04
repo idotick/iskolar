@@ -1,11 +1,11 @@
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { loginUser, LoginResponse, logoutUser, LogoutResponse, validateUser, ValidateResponse } from "@/network/auth";
+import { loginUser, LoginResponse, logoutUser, LogoutResponse, validateUser, ValidateResponse } from "@/network/Authentication";
 
-import { AuthReceipt, registerUser, resolveUser } from "@/network/user";
+import { AuthReceipt, registerUser, resolveUser } from "@/network/User";
 
-import { UserInfo } from "./user"
+import { UserInfo } from "./User"
 import { attachFullName, validateEmail, validateInitial, validateName, validatePassword, validateUserID } from "@/util/helpers";
 
 export type RegistrationData = {

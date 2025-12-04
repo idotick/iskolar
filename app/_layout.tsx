@@ -58,12 +58,12 @@ function RootLayoutNav() {
         headerStyle: { backgroundColor: '#161618ff' },
         headerLeft: () => (
             <View style={{ backgroundColor: 'transparent', marginLeft: 25 }}>
-              <Text style={{ fontSize: 28.6, fontWeight: "bold", color: "white" }}>iskolar</Text>
+              <Text style={{ fontSize: 28, fontWeight: "bold", color: "white" }}>iskolar</Text>
             </View>
         ),
         
         headerRight: () => (
-            <View style={{ marginRight: 4, backgroundColor: 'transparent', flexDirection: "row", gap: 10 }}>
+            <View style={{ marginRight: 12, backgroundColor: 'transparent', flexDirection: "row", gap: 10 }}>
               <Link href="/notifications" asChild>
                 <Entypo name='bell' size={24} color='#fff' />
               </Link>
@@ -76,7 +76,7 @@ function RootLayoutNav() {
         headerBackVisible: false
       }
     }>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
       <Stack.Screen name="(auth)" options={{ headerShown: false }} />
       <Stack.Screen name="(settings)" options={{ headerShown: false }} />
       <Stack.Screen name="settings" options={{ presentation: 'modal', title: ''}} />

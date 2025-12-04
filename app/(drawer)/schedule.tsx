@@ -200,7 +200,7 @@ export default function HomeScreen() {
 		day = 0
 
 	return (
-		<Page style={styles.page}>
+		<Page title={"Schedule "} style={styles.page}>
 			<PagedContainer
 				style={styles.schedule}
 				containerStyle={styles.container}

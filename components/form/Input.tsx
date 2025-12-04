@@ -1,20 +1,21 @@
-import { View, StyleSheet, Text, StyleProp, ViewStyle, TextInput } from "react-native";
 
+import { View, StyleSheet, Text, StyleProp, ViewStyle, TextInput } from "react-native";
+import Animated  from 'react-native-reanimated';
 
 type FormInputProps = {
     name: string,
     content: string,
     onChange: (value: string) => void,
-    secured?: boolean
-    style?: StyleProp<ViewStyle>,
+    secured?: boolean,
+    style?: StyleProp<ViewStyle>
 };
 
-export function FormInput ( { name, content, onChange, style, secured }: FormInputProps ) {
-    return (<View style={[style, styles.container]}>
+export function FormInput ( { name, content, style, secured, onChange }: FormInputProps ) {
+    return (<Animated.View style={[style, styles.container]}>
         <Text style={styles.label}> { name } </Text>
 
         <TextInput style={styles.input} value={content} onChangeText={onChange} secureTextEntry={secured}/>
-    </View>);
+    </Animated.View>);
 }
 
 export function SmallFormInput ( { name, content, onChange, style, secured }: FormInputProps ) {

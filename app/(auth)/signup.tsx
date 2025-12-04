@@ -6,7 +6,7 @@ import { Link, Redirect } from 'expo-router';
 
 import { ImageBackground } from 'expo-image';
 
-import { RegistrationData, requestRegister, validateRegistrationData, } from '@/handlers/session';
+import { RegistrationData, requestRegister, validateRegistrationData, } from '@/handlers/Session';
 
 import { FormInput, SmallFormInput } from '@/components/form/Input';
 import AuthButton from '@/components/form/AuthButton';

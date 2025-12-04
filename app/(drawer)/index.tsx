@@ -1,7 +1,6 @@
 
 import { Text, View, StyleSheet } from 'react-native';
 
-import { Link } from 'expo-router';
 
 import { Page, } from '@/components/Page';
 
@@ -9,12 +8,16 @@ import PageContainer from '@/components/containers/PageContainer';
 import AnnouncementsPreview from '@/components/previews/AnnouncementPreview';
 import SchedulePreview from '@/components/previews/SchedulePreview';
 import ProfilePreview from '@/components/previews/ProfilePreview';
+import { useTheme } from '@/constants/Theme';
+
 
 
 export default function HomeScreen() {
+	const theme = useTheme();
+
 	return (
 		<PageContainer>
-			<Page>
+			<Page title={"Home"} style={{backgroundColor: theme.colors.primary}}>
 				<ProfilePreview/>
 				<SchedulePreview style={styles.schedule}/>
 				<AnnouncementsPreview style={styles.announcements} data={["Welcome to Pisay!", "Gym has re-opened after 2 weeks."]}/>

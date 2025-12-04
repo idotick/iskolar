@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { resolveUser, resolveUserList } from "@/network/user";
+import { resolveUser, resolveUserList } from "@/network/User";
 
 export type UserInfo = {
   uuid: string,

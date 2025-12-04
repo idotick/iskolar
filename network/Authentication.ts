@@ -1,4 +1,4 @@
-import { httpsURL } from "./defaults";
+import { httpsURL } from "./Network";
 
 import { sha512 } from "js-sha512";
 

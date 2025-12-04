@@ -9,7 +9,7 @@ export default function HomeScreen() {
 	return (
 		<PageContainer>
 
-			<Page>
+			<Page title={"Cafeteria"}>
 
 
 			</Page>

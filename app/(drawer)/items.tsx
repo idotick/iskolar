@@ -6,12 +6,6 @@ import { Page } from '@/components/Page';
 import PageContainer from '@/components/containers/PageContainer';
 import TagScanner from '@/components/scanners/TagScanner';
 
-// type ScannerContainerProps = {
-//     scanning: boolean,
-//     onScan: (data: string) => void,
-//     onExit: () => void
-// };
-
 function ScannerContainer(){
     const [scanning, setScanning] = useState<boolean>(false);
 
@@ -29,29 +23,22 @@ function ScannerContainer(){
         setScanning(true);
     }
 
-    function endScan(){
-        setScanning(false);
-    }
-
-    if (!scanning){
-        return (<View style={styles.container}>
-            <Text style={styles.message}> Found a lost item? Scan here. </Text>
+    return (<View style={styles.container}>
+        <Text style={styles.message}> Found a lost item? Scan here. </Text>
 
             <TouchableOpacity style={styles.button} onPress={startScan}>
                 <Text style={styles.buttonLabel}> SCAN </Text>
             </TouchableOpacity>
-        </View>);
-    }
 
-    return (<TagScanner onScan={onScan} onExit={onExit}/>);
+        <TagScanner scanning={scanning} onScan={onScan} onExit={onExit}/>
+    </View>);
+
 }
 
 export default function ItemsScreen() {
-    
-
     return (
         <PageContainer>
-            <Page>
+            <Page title={"Lost & Found"} style={styles.page}>
                 
 
                 <ScannerContainer/>
@@ -62,11 +49,21 @@ export default function ItemsScreen() {
 }
 
 const styles = StyleSheet.create({
-    container: {
+    page: {
         flex: 1,
 
         width: "100%",
-        height: "100%"
+        height: "100%",
+    },
+
+    container: {
+        flex: 1,
+
+        alignItems: "center",
+        justifyContent: "center",
+
+        width: "100%",
+        height: "100%",
     },
 
     background: {
@@ -76,10 +73,12 @@ const styles = StyleSheet.create({
         height: '100%',
     },
 
-    message: {        
+    message: {       
         fontSize: 16,
 
-        fontWeight: "bold"
+        fontWeight: "bold",
+
+        color: "#ffffff"
     },
 
     button: {
@@ -87,7 +86,7 @@ const styles = StyleSheet.create({
         
         width: 128,
 
-        marginTop: 12,
+        marginTop: 24,
 
         padding: 8,
 

@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { removeMenuItem, resolveMenuList } from "@/network/menu";
+import { removeMenuItem, resolveMenuList } from "@/network/Menu";
 
 export async function requestItemRemoval(uuid: string): Promise<boolean> {
   const session: string | null = await AsyncStorage.getItem("session");

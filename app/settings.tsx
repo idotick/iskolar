@@ -5,7 +5,7 @@ import PageContainer from '@/components/containers/PageContainer';
 import { Page } from '@/components/Page';
 import SettingContainer from '@/components/containers/SettingContainer';
 import AuthButton from '@/components/form/AuthButton';
-import { requestLogout } from '@/handlers/session';
+import { requestLogout } from '@/handlers/Session';
 import { useState } from 'react';
 import { Redirect } from 'expo-router';
 import SectionLink from '@/components/sections/SectionLink';
@@ -43,7 +43,7 @@ export default function SettingsScreen() {
           <Text> </Text>
         </SettingContainer>
 
-        {/* <AuthButton name="signout" onAction={onLogout} style={styles.button} /> */}
+        <AuthButton name="signout" onAction={onLogout} style={styles.button} />
 
       </Page>
     </PageContainer>

@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { addCredit } from "@/network/bank";
+import { addCredit } from "@/network/Bank";
 
 
 async function requestCredit(uuid: string, amount: number): Promise<number>{

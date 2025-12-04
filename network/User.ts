@@ -1,8 +1,8 @@
-import { httpsURL } from "./defaults";
+import { httpsURL } from "./Network";
 
 import { sha512 } from "js-sha512";
 
-import { UserData, UserInfo } from "@/handlers/user";
+import { UserData, UserInfo } from "@/handlers/User";
 
 const route: string = "/api/v1/users";
 

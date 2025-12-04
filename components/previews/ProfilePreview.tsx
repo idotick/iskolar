@@ -7,7 +7,7 @@ import ProfileCard from "../cards/ProfileCard";
 import { Text, StyleSheet } from "react-native";
 import { Card } from "../cards/Card";
 
-import { requestUserInfo, UserInfo } from "@/handlers/user";
+import { requestUserInfo, UserInfo } from "@/handlers/User";
 
 export default function ProfilePreview(){
     const [ userData, setUserData ] = useState<UserInfo | null>(null);

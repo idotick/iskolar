@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 
 import { Redirect } from "expo-router";
 
-import { validateSession } from "@/handlers/session";
+import { validateSession } from "@/handlers/Session";
 import SplashScreen from "@/screens/SplashScreen";
 
 export default function AuthProvider( { children }: any){

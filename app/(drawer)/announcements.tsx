@@ -9,7 +9,7 @@ import { Page } from '@/components/Page';
 
 export default function AnnouncementScreen() {
 	return (
-		<Page>
+		<Page title={"Announcements"}>
 			<RowContainer style={styles.header}>
 				<Entypo name={'megaphone'} size={85} color={'white'} style={{ marginRight: 30 }} />
 				<View style={styles.titleContainer}>

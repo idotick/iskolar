@@ -1,6 +1,8 @@
-import { createTransaction } from "@/network/transactions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { OrderItem } from "./orders";
+
+import { createTransaction } from "@/network/Transactions";
+
+import { OrderItem } from "./Orders";
 
 export async function requestTransaction(uuid: string, items: OrderItem[]): Promise<boolean> {
     const session: string | null = await AsyncStorage.getItem("session");

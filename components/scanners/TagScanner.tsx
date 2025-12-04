@@ -1,19 +1,36 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { ActivityIndicator, Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+import Animated, { interpolate, useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
+
 import { CameraView, CameraType, BarcodeScanningResult, useCameraPermissions } from 'expo-camera'
+
 import { MaterialIcons } from '@expo/vector-icons';
 
+import { PointerEventType } from '@/util/types';
+
 type TagScannerProps = {
+    scanning: boolean,
     onScan: (data: string) => void,
     onExit: () => void
 };
 
-export default function TagScanner( { onScan, onExit }: TagScannerProps ) {
+export default function TagScanner( { scanning, onScan, onExit }: TagScannerProps ) {
     const [permission, requestPermission] = useCameraPermissions();
 
-    const [scanned, setScanned] = useState<string | null>(null);
+    const opacity = useSharedValue(1);
+
+    useEffect(() => {
+        if (scanning){
+            opacity.value = withSpring(1);
+        }
+        
+        else {
+            opacity.value = withSpring(0);
+        }
+
+    }, [scanning]);
 
     if (!permission){
         return (<View style={styles.container}>
@@ -21,19 +38,13 @@ export default function TagScanner( { onScan, onExit }: TagScannerProps ) {
         </View>);
     }
 
-    if (!permission.granted) {
-        return (<View style={styles.container}>
-            <Text style={styles.message}>We need your permission to show the camera</Text>
-            <Button onPress={requestPermission} title="grant permission" />
-        </View>);
-    }
-
     function onTagScanned(result: BarcodeScanningResult){
         onScan(result.data);
-        setScanned(result.data);
     }
 
-    return (<View style={styles.container}>
+    const pointerEvents: PointerEventType = ((scanning) ? 'auto' : 'none');
+
+    return (<Animated.View pointerEvents={pointerEvents} style={[styles.container, {opacity}]}>
         <CameraView style={styles.scannerView} facing={'back'} onBarcodeScanned={onTagScanned} barcodeScannerSettings={
             {
                 barcodeTypes: ["qr", "ean13", "code39"]
@@ -50,17 +61,20 @@ export default function TagScanner( { onScan, onExit }: TagScannerProps ) {
 
          <View style={styles.guide}/>
         
-    </View>)
+    </Animated.View>)
 }
 
 const styles = StyleSheet.create({
     container: {
+        position: "absolute",
+        
         flex: 1,
 
         justifyContent: "center",
         alignItems: "center",
 
-        
+        width: "100%",
+        height: "100%",
     },
 
     labelContainer: {
@@ -72,14 +86,15 @@ const styles = StyleSheet.create({
 
         padding: 8,
 
-        top: 48,
+        top: 64,
 
 
-        backgroundColor: "lightblue"
+        backgroundColor: "#6a8be480"
 
     },
 
     label: {
+
         fontSize: 24,
 
         fontWeight: "bold",
@@ -98,9 +113,12 @@ const styles = StyleSheet.create({
 
         aspectRatio: 1,
 
-        borderWidth: 2,
+        borderWidth: 4,
         borderColor: "white",
-        borderStyle: "dashed"
+        borderStyle: "dashed",
+
+        borderRadius: 12,
+
     },
 
     message: {
@@ -110,7 +128,6 @@ const styles = StyleSheet.create({
     scannerView: {
         flex: 1,
 
-        borderRadius: 12,
         overflow: "hidden",
 
         width: "100%",

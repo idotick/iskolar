@@ -1,6 +1,6 @@
-import { httpsURL } from "./defaults";
+import { httpsURL } from "./Network";
 
-import { FoodItem } from '@/handlers/item';
+import { FoodItem } from '@/handlers/Item';
 
 const route = "/api/v1/menu"
 

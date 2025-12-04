@@ -1,10 +1,10 @@
-import { resolveMonitor, resolveOrder } from "@/network/orders";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { createOrder, updateOrder } from "@/network/orders";
+import { createOrder, updateOrder, resolveMonitor, resolveOrder } from "@/network/Orders";
 
-import { UserInfo } from "./user";
-import { requestResolve } from "./session";
+import { UserInfo } from "./User";
+import { requestResolve } from "./Session";
 
 export type OrderInfo = { 
     type: string,

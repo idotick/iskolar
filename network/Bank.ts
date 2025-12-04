@@ -1,4 +1,4 @@
-import { httpsURL } from "./defaults"
+import { httpsURL } from "./Network"
 
 const route: string = "/api/v1/bank"
 

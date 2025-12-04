@@ -1,8 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { addMenuItem } from "@/network/menu";
+import { addMenuItem } from "@/network/Menu";
 
-import { createItem, destroyItem, resolveItemList } from "@/network/items";
+import { createItem, destroyItem, resolveItemList } from "@/network/Items";
 
 export type FoodItem = {
     uuid: string,

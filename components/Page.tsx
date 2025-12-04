@@ -1,4 +1,7 @@
+import { DrawerActions } from "@react-navigation/native";
+import { Router, useNavigation, useRouter } from "expo-router";
 import { StyleSheet, View, ScrollView, ViewProps } from "react-native";
+import { Appbar } from "react-native-paper";
 
 export function ScrollablePage({ children, style }: ViewProps) {
 	return (
@@ -11,13 +14,24 @@ export function ScrollablePage({ children, style }: ViewProps) {
 	);
 }
 
-export function Page({ children, style }: ViewProps) {
+type PageProps = {
+	title: string
+} & ViewProps;
+
+export function Page({ children, title, style }: PageProps) {
+	const router: Router = useRouter();
+	const nav = useNavigation();
+
 	return (
-		<ScrollView style={[styles.screenContainer, style]}>
+		<View style={[styles.screenContainer, style]}>
+			<Appbar.Header>
+				<Appbar.Action icon="menu" onPress={() => nav.dispatch(DrawerActions.openDrawer())} />
+				<Appbar.Content title={title} titleStyle={{fontWeight: "bold"}}/>
+			</Appbar.Header>
 			<View style={[styles.container]}> 
 			{ children } 
 			</View>
-		</ScrollView>
+		</View>
 		
 	);
 }
@@ -45,7 +59,5 @@ const styles = StyleSheet.create({
 
 	container: {
 		flex: 1,
-
-		padding: 8
 	},
 })
