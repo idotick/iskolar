@@ -35,26 +35,28 @@ export default function ProfilePreview(){
 
     const firstName: string = userData.name.split(" ")[0];
 
-    return (<RowContainer>
-        <ProfileCard style={styles.profile} size={64}/>
-        <Container>
-            <Text style={styles.hello}> Hello {firstName}! </Text>
-            <Card border_radius={16} style={styles.description}>
-                <Text style={styles.card_subtext}> 11 - RIGEL </Text>
-                <Text style={styles.card_subtext}> INTERN </Text>
-            </Card>
-        </Container>
-    </RowContainer>);
+    return (<Container style={styles.container}>
+        <Text style={styles.hello}> Hello {firstName}! </Text>
+        <Card style={styles.description}>
+            <Text style={styles.card_subtext}> 11 Rigel </Text>
+            <Text style={styles.card_subtext}> Intern </Text>
+        </Card>
+    </Container>);
 };
 
 const styles = StyleSheet.create({
+    container: {
+        width: "100%",
+        height: 128,
+    },
+
     profile: {
         width: "40%",
         marginRight: 16,
     },
 
     description: {
-        width: 192,
+        width: "100%",
 
         height: 72
     },
@@ -65,8 +67,6 @@ const styles = StyleSheet.create({
 
         fontWeight: "bold",
         fontSize: 24,
-
-        color: "white",
     },
 
     card_subtext: {
@@ -75,8 +75,6 @@ const styles = StyleSheet.create({
 
         fontWeight: "500",
         fontSize: 16,
-
-        color: "white",
     },
 });
 

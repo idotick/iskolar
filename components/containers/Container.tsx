@@ -8,6 +8,6 @@ export default function Container( { style, children }: ViewProps ){
 
 const styles = StyleSheet.create({
     container: {
-
+        
     },
 })

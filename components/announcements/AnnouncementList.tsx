@@ -1,24 +1,24 @@
 import { FlatList, StyleSheet, ViewProps } from 'react-native';
 
-import AnnouncementOverview, { AnnouncementData } from './AnnouncementOverview';
+import AnnouncementView from './AnnouncementOverview';
 
-type AnnnouncementListProps = {
+import { AnnouncementData } from '@/util/Types';
+
+type AnnouncementListProps = {
 	data: AnnouncementData[],
+	onInteract: (data: AnnouncementData) => void
 } & ViewProps;
 
-export default function AnnnouncementList( { data, style } : AnnnouncementListProps ) {
+export default function AnnouncementList( { data, style, onInteract } : AnnouncementListProps ) {
 	return (
 		<FlatList
 			data={data}
-			contentContainerStyle={styles.container}
-			style={[{ flex: 1 }, style]}
-			scrollEnabled={false}
+			style={[styles.container, style]}
+			scrollEnabled
 			renderItem={({ item }) => (
-				<AnnouncementOverview
-					recent={item.recent}
-					date={item.date}
-					title={item.title}
-					overview={item.overview}
+				<AnnouncementView
+					data={item}
+					onInteract={onInteract}
 				/>
 			)}
 		/>
@@ -27,8 +27,6 @@ export default function AnnnouncementList( { data, style } : AnnnouncementListPr
 
 const styles = StyleSheet.create({
 	container: {
-		padding: 20,
-
-		backgroundColor: 'transparent',
+		flex: 1,
 	},
 })

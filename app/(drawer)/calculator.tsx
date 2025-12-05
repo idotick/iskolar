@@ -77,7 +77,7 @@ export default function CalculatorScreen() {
         <PageContainer>
             <Page title={"GWA Calculator"} style={styles.page} scrollable>
                 <View style={styles.dropdown}>
-                    <Dropdown label="Grade Level" placeholder="Select Grade Level" options={OPTIONS} value={configuration} onSelect={setConfiguration}/>
+                    <Dropdown label="Grade Level" placeholder="Select Grade Level" options={OPTIONS} value={configuration} hideMenuHeader={true} onSelect={setConfiguration}/>
                 </View>
                     
                 <GradesView subjects={subjects} onChange={onChange}/>

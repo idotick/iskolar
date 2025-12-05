@@ -23,7 +23,7 @@ function AnnouncementPreviewItem( { content }: AnnouncementPreviewItemProps ){
 }
 
 export default function AnnouncementsPreview( { data, style }: AnnouncementsPreviewProps ){
-    return (<Card style={[styles.container, style]} border_radius={16}>
+    return (<Card style={[styles.container, style]}>
 
         <RowContainer>
             <Text style={styles.cardSubtext}> ANNOUNCEMENTS </Text>
@@ -34,7 +34,7 @@ export default function AnnouncementsPreview( { data, style }: AnnouncementsPrev
             return (<AnnouncementPreviewItem content={item} />);
         }} />
 
-        <Link href="/(tabs)/announcements" style={styles.sectionLink}>
+        <Link href="/(drawer)/announcements" style={styles.sectionLink}>
             <Text style={styles.linkText}> See More </Text>
         </Link>
     </Card>)

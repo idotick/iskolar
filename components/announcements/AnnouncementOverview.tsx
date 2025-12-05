@@ -1,75 +1,58 @@
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, ViewProps, Pressable } from 'react-native';
 
 import RowContainer from '@/components/containers/RowContainer';
+import { Card } from 'react-native-paper';
+import { useTheme } from '@/constants/Theme';
+import { AnnouncementData } from '@/util/Types';
 
-export type AnnouncementData = {
-	recent?: boolean
-	date: Date
-	title: string
-	overview: string
-}
+type AnnouncementViewProps = {
+	data: AnnouncementData,
+	onInteract: (data: AnnouncementData) => void
+} & ViewProps;
 
-export default function AnnouncementOverview({ recent, date, title, overview }: AnnouncementData) {
-	const fontSize = recent ? 20 : 16;
-	const width = recent ? 80 : 65;
+export default function AnnouncementView({ data, onInteract }: AnnouncementViewProps) {
+	const theme = useTheme();
 
-	const currentDate = new Date().toDateString();
-	const dateString = date.toDateString();
-	const display = dateString.split(' ');
+	const themedStyle = {
+		backgroundColor: "white"
+	};
 
-	if (dateString === currentDate) {
-		display[1] = "Today";
-		display[2] = '';
-		display[3] = date.toString().substring(16, 21);
+	function onPress(){
+		onInteract(data);
 	}
 
+	const { date, title } = data;
+
 	return (
-		<RowContainer style={styles.main}>
-			<View style={[styles.timeContainer, { width: width }]}>
-				<Text style={[styles.text, { fontSize: fontSize }]}>{display[1]} {display[2]}</Text>
-				<Text style={[styles.text, { fontSize: 12 }]}>{display[3]}</Text>
-			</View>
-			<View style={styles.container}>
-				<Text style={[styles.text, { fontSize: 16, marginBottom: 5 }]}>{title}</Text>
-				<Text style={[styles.text, { fontSize: 9 }]}>{overview}</Text>
-			</View>
-		</RowContainer>
+		<Card style={[styles.container, themedStyle]}>
+			<Pressable style={styles.link} onPress={onPress}>
+				<Card.Title titleStyle={styles.title} title={title} subtitleStyle={styles.subtitle} subtitle={date.toLocaleDateString("en-us")} />
+				<Card.Cover source={{ uri: 'https://hypixel.net/attachments/sweet-wonderland-png.3281057/' }} />
+			</Pressable>
+			
+		</Card>
 	);
 }
 
 const styles = StyleSheet.create({
-	main: {
-		justifyContent: 'flex-start',
-
-		marginTop: 20,
-		marginBottom: 15,
-
-		backgroundColor: 'tranparent',
-	},
-	timeContainer: {
-		justifyContent: 'center',
-		
-		height: 70,
-
-		marginRight: 20,
-
-		borderRightWidth: 2,
-		borderRightColor: '#fff6f2',
-
-		backgroundColor: 'transparent',
-	},
 	container: {
-		justifyContent: 'center',
-
-		width: 200,
-
-		backgroundColor: 'transparent',
+		marginBottom: 16,
 	},
-	text: {
-		backgroundColor: 'transparent',
 
-		textAlign: 'left',
+	title: {
+		fontWeight: "bold",
 
-		color: '#fff6f2',
+		marginBottom: -8,
+	},
+
+	subtitle: {
+		color: "gray",
+		fontSize: 12
+	},
+
+	link: {
+		flex: 1,
+		width: "100%",
+		height: "100%",
 	}
-})
+});

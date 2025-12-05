@@ -31,7 +31,32 @@ export default function Page({ children, title, style, contentStyle, scrollable,
 		nav.dispatch(DrawerActions.openDrawer());
 	}
 
-	return (<ScrollView scrollEnabled={scrollable} style={[styles.screenContainer, style, themeStyle]}>
+	if (scrollable){
+		return (<ScrollView contentContainerStyle={styles.contentContainer} style={[styles.screenContainer, style, themeStyle]}>
+			<Appbar.Header style={styles.header}>
+				{
+					(modal) ? (<Appbar.BackAction onPress={() => router.back()}/>) : (<Appbar.Action icon="menu" onPress={openDrawer} />)
+				}
+
+				<Appbar.Content title={title} titleStyle={{fontWeight: "bold"}}/>
+
+				{
+					!modal && (
+					<>
+					<Appbar.Action icon="cog" onPress={() => router.push("/settings")} />
+					<Appbar.Action icon="bell" onPress={() => router.push("/notifications")} />
+					</>
+				)}
+
+			</Appbar.Header>
+
+			<View style={[styles.container, contentStyle]}> 
+				{ children } 
+			</View>
+		</ScrollView>);
+	}
+
+	return (<View style={[styles.screenContainer, style, themeStyle]}>
 		<Appbar.Header style={styles.header}>
 			{
 				(modal) ? (<Appbar.BackAction onPress={() => router.back()}/>) : (<Appbar.Action icon="menu" onPress={openDrawer} />)
@@ -52,7 +77,7 @@ export default function Page({ children, title, style, contentStyle, scrollable,
 		<View style={[styles.container, contentStyle]}> 
 			{ children } 
 		</View>
-	</ScrollView>);
+	</View>);
 }
 
 
@@ -95,4 +120,11 @@ const styles = StyleSheet.create({
 		paddingTop: 64,
 
 	},
+
+	contentContainer: {
+		flex: 1,
+
+		width: "100%",
+		height: "100%",
+	}
 })
