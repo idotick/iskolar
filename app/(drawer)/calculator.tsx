@@ -2,28 +2,72 @@ import { useState } from 'react';
 
 import { Text, StyleSheet, Button, TouchableOpacity, View } from 'react-native';
 
-import { Page } from '@/components/pages/Page';
+import { Dropdown } from 'react-native-paper-dropdown';
+
+import { SubjectData } from '@/handlers/Subjects';
+
+import Page from '@/components/pages/Page';
 import PageContainer from '@/components/containers/PageContainer';
 import TagScanner from '@/components/scanners/TagScanner';
 import GradesView from '@/components/grades/GradesView';
-import { SubjectData } from '@/handlers/Subjects';
+
 import { clamp } from '@/util/Helpers';
 
+const OPTIONS = [
+    { label: "Grade 7", value: "7" },
+    { label: "Grade 8", value: "8" },
+    { label: "Grade 9", value: "9" },
+    { label: "Grade 10", value: "10" },
+    { label: "Grade 11", value: "11" },
+    { label: "Grade 12", value: "12" }
+];
 
 export default function CalculatorScreen() {
     const [ subjects, setSubjects ] = useState<SubjectData[]>([
         {
-            name: "Mathematics",
+            name: "Math 5",
             grade: 1,
             weight: 1
         },
 
         {
-            name: "Integrated Science",
+            name: "English 5",
+            grade: 1,
+            weight: 1
+        },
+
+        {
+            name: "Filipino 5",
+            grade: 1,
+            weight: 1
+        },
+
+        {
+            name: "Social Science 5",
+            grade: 1,
+            weight: 1
+        },
+
+        {
+            name: "Research 5",
+            grade: 1,
+            weight: 1
+        },
+
+        {
+            name: "Core",
+            grade: 1,
+            weight: 1
+        },
+
+        {
+            name: "Elective",
             grade: 1,
             weight: 1
         }
     ]);
+    
+    const [ configuration, setConfiguration ] = useState<string>();
 
     function onChange(name: string, change: number) {
         setSubjects(prev => prev.map(subject => (subject.name == name) ? { ...subject, grade: clamp(subject.grade + change, 1, 5)} : subject));
@@ -31,8 +75,11 @@ export default function CalculatorScreen() {
 
     return (
         <PageContainer>
-            <Page title={"GWA Calculator"} style={styles.page}>
-
+            <Page title={"GWA Calculator"} style={styles.page} scrollable>
+                <View style={styles.dropdown}>
+                    <Dropdown label="Grade Level" placeholder="Select Grade Level" options={OPTIONS} value={configuration} onSelect={setConfiguration}/>
+                </View>
+                    
                 <GradesView subjects={subjects} onChange={onChange}/>
 
             </Page>
@@ -90,6 +137,12 @@ const styles = StyleSheet.create({
     buttonLabel: {
         fontSize: 20,
         fontWeight: "bold"
+    },
+
+    dropdown: {
+        alignSelf: "center",
+
+        width: "90%"
     }
 
 });

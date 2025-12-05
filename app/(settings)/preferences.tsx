@@ -1,14 +1,14 @@
 import { Text } from "react-native";
 
 import PageContainer from "@/components/containers/PageContainer";
-import { ModalPage} from "@/components/pages/Page";
+import Page from '@/components/pages/Page';
 
 export default function PreferencesModal(){
     return (<PageContainer>
-        <ModalPage title={"Preferences"}>
+        <Page title={"Preferences"} modal>
             <Text>
                 Preferences
             </Text>
-        </ModalPage>
+        </Page>
     </PageContainer>);
 };

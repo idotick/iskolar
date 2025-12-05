@@ -15,7 +15,7 @@ export default function GradeView( { name, value, style, onChange }: GradeViewPr
     const theme = useTheme();
 
     const themeStyle = {
-        backgroundColor: theme.colors.primary,
+        backgroundColor: theme.colors.secondary,
     };
 
     return (<View style={[styles.container, style, themeStyle]}>
@@ -32,7 +32,10 @@ export default function GradeView( { name, value, style, onChange }: GradeViewPr
 
 const styles = StyleSheet.create({
     container: {
-        width: 256,
+        alignSelf: "center",
+
+        width: "90%",
+
         height: 108,
 
         marginBottom: 24,
@@ -41,8 +44,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
 
         borderRadius: 18,
-        borderColor: "black",
-        borderWidth: 2,
     },
 
     label: {
@@ -60,6 +61,8 @@ const styles = StyleSheet.create({
     },
 
     row: {
+        alignSelf: "center",
+        
         flexDirection: "row"
     }
 });

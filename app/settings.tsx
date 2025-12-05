@@ -14,7 +14,7 @@ import AuthButton from '@/components/form/AuthButton';
 
 import SectionLink from '@/components/sections/SectionLink';
 
-import { ModalPage } from '@/components/pages/Page';
+import Page from '@/components/pages/Page';
 
 export default function SettingsScreen() {
   const [ authenticated, setAuthenticated ] = useState<boolean>(true);
@@ -35,7 +35,7 @@ export default function SettingsScreen() {
   
   return (
     <PageContainer>
-      <ModalPage title={"Settings"}>
+      <Page modal title={"Settings"}>
         <SectionLink href={"/profile"} name={"profile"} description={"Your really cool information"} style={{ marginTop: 8 }} icon={
             <MaterialIcons name="manage-accounts" size={36}/>
         }/>
@@ -47,7 +47,8 @@ export default function SettingsScreen() {
 
         <AuthButton name="signout" onAction={onLogout} style={styles.button} />
 
-      </ModalPage>
+      </Page>
+
     </PageContainer>
   );
 }
@@ -58,8 +59,6 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    position: "absolute",
 
-    bottom: 96,
   },
 });

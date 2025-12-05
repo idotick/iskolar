@@ -6,12 +6,14 @@ import { requestUserInfo, UserInfo } from "@/handlers/User";
 
 import PageContainer from "@/components/containers/PageContainer";
 
-import { ModalPage } from "@/components/pages/Page";
+import Page from '@/components/pages/Page';
+
+import { ProfileField } from "@/components/profile/ProfileField";
 
 import { batchToGrade, extractBatch } from "@/util/Helpers";
 import { globalStyles } from "@/util/Styles";
+
 import { useTheme } from "@/constants/Theme";
-import { ProfileField } from "@/components/profile/ProfileField";
 
 export default function ProfileModal(){
     const [ userData, setUserData ] = useState<UserInfo | null>(null);
@@ -32,28 +34,28 @@ export default function ProfileModal(){
 
     if (!userData){
         return (<PageContainer>
-            <ModalPage title={"Preferences"}>
+            <Page modal title={"Preferences"}>
                 <ActivityIndicator style={styles.loading} size={"large"} color={"white"}/>
-            </ModalPage>
+            </Page>
         </PageContainer>);
     }
 
     const batch: string = extractBatch(userData.id)!;
 
     return (<PageContainer>
-        <ModalPage title={"Profile"} contentStyle={styles.page} >
+        <Page title={"Profile"} contentStyle={styles.page} modal>
             <ProfileField name={"Name"} content={userData.name}/>
             <ProfileField name={"Email"} content={userData.email}/>
             <ProfileField name={"Batch"} content={batch}/>
 
-        </ModalPage>
+        </Page>
 
     </PageContainer>);
 };
 
 const styles = StyleSheet.create({
     page: {
-        paddingTop: 16
+        
     },
 
     loading: {

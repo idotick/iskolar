@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Text, StyleSheet, Button, TouchableOpacity, View } from 'react-native';
 
-import { Page } from '@/components/pages/Page';
+import Page from '@/components/pages/Page';
 import PageContainer from '@/components/containers/PageContainer';
 import TagScanner from '@/components/scanners/TagScanner';
 

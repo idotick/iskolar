@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import PageContainer from '@/components/containers/PageContainer';
 import NotificationList, { NotifData } from '@/components/notifications/NotificationList';
-import { ModalPage } from '@/components/pages/Page';
+import Page from '@/components/pages/Page';
 
 
 export default function ModalScreen() {
@@ -16,9 +16,9 @@ export default function ModalScreen() {
 
   return (
     <PageContainer>
-      <ModalPage title={"Notifications"}>
+      <Page modal title={"Notifications"}>
         <NotificationList data={data} style={styles.list}/>
-      </ModalPage>
+      </Page>
     </PageContainer>
   );
 }
@@ -36,6 +36,6 @@ const styles = StyleSheet.create({
   },
 
   list: {
-    marginTop: 16,
+
   }
 });

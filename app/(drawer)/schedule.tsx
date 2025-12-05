@@ -3,7 +3,7 @@ import { Text, View, StyleSheet } from 'react-native';
 
 import { Link } from 'expo-router';
 
-import { Page } from '@/components/pages/Page';
+import Page from '@/components/pages/Page';
 import PagedContainer from '@/components/containers/PagedContainer';
 import { Table } from '@/components/table/Table';
 import { ClassData, TeacherData } from '@/components/table/types';
