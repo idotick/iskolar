@@ -8,8 +8,10 @@ import PageContainer from "@/components/containers/PageContainer";
 
 import { ModalPage } from "@/components/pages/Page";
 
-import { batchToGrade, extractBatch } from "@/util/helpers";
-import { globalStyles } from "@/util/styles";
+import { batchToGrade, extractBatch } from "@/util/Helpers";
+import { globalStyles } from "@/util/Styles";
+import { useTheme } from "@/constants/Theme";
+import { ProfileField } from "@/components/profile/ProfileField";
 
 export default function ProfileModal(){
     const [ userData, setUserData ] = useState<UserInfo | null>(null);
@@ -39,22 +41,10 @@ export default function ProfileModal(){
     const batch: string = extractBatch(userData.id)!;
 
     return (<PageContainer>
-        <ModalPage title={"Preferences"}>
-            <Text style={styles.field}>
-                <Text style={globalStyles.bold}> Name: </Text> {userData.name}
-            </Text>
-
-            <Text style={styles.field}>
-                <Text style={globalStyles.bold}> Email: </Text> {userData.email}
-            </Text>
-
-            <Text style={styles.field}>
-                <Text style={globalStyles.bold}> Batch: </Text> {batch}
-            </Text>
-
-            <Text style={styles.field}>
-                <Text style={globalStyles.bold}> Grade: </Text> Grade {batchToGrade(batch)}
-            </Text>
+        <ModalPage title={"Profile"} contentStyle={styles.page} >
+            <ProfileField name={"Name"} content={userData.name}/>
+            <ProfileField name={"Email"} content={userData.email}/>
+            <ProfileField name={"Batch"} content={batch}/>
 
         </ModalPage>
 
@@ -62,16 +52,8 @@ export default function ProfileModal(){
 };
 
 const styles = StyleSheet.create({
-    field: {
-        marginBottom: 4,
-
-        paddingLeft: 8,
-        paddingVertical: 8,
-
-        borderWidth: 1,
-        borderColor: "white",
-
-        color: "white"
+    page: {
+        paddingTop: 16
     },
 
     loading: {

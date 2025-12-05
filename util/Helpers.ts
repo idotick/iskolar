@@ -71,3 +71,7 @@ export function batchToGrade(batch: string): number {
 
   return (12 - graduationYear + academicYear);
 }
+
+export function clamp(x: number, min: number, max: number){
+  return Math.max(Math.min(x, max), min);
+}

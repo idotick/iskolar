@@ -6,7 +6,7 @@ import { loginUser, LoginResponse, logoutUser, LogoutResponse, validateUser, Val
 import { AuthReceipt, registerUser, resolveUser } from "@/network/User";
 
 import { UserInfo } from "./User"
-import { attachFullName, validateEmail, validateInitial, validateName, validatePassword, validateUserID } from "@/util/helpers";
+import { attachFullName, validateEmail, validateInitial, validateName, validatePassword, validateUserID } from "@/util/Helpers";
 
 export type RegistrationData = {
     firstName: string,

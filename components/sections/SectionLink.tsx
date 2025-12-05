@@ -1,8 +1,12 @@
-import { useTheme } from "@/constants/Theme";
-import { capitalize } from "@/util/helpers";
-import { Href, Link } from "expo-router";
 import { ReactNode } from "react";
-import { StyleSheet, View, Text, ViewStyle } from "react-native";
+
+import { StyleSheet, View, Text, ViewStyle, Pressable } from "react-native";
+
+import { Href, Link, Router, useRouter } from "expo-router";
+
+import { useTheme } from "@/constants/Theme";
+
+import { capitalize } from "@/util/Helpers";
 
 type SectionLinkProps = {
     href: Href
@@ -16,12 +20,19 @@ type SectionLinkProps = {
 export default function SectionLink( { href, name, description, icon, style }: SectionLinkProps ){
     const theme = useTheme();
 
+    const router: Router = useRouter();
+
     const themeStyle = {
-        backgroundColor: theme.colors.primary
+        backgroundColor: theme.colors.secondary
     };
+
+    function openSection() {
+        router.push(href);
+    }
     
     return (<View style={[styles.container, style, themeStyle]}>
-        <Link href={href} style={styles.link}>
+        <Pressable style={styles.link} onPress={openSection}>
+
             <View style={styles.icon}>
                 {icon}
             </View>
@@ -35,7 +46,7 @@ export default function SectionLink( { href, name, description, icon, style }: S
                     {description}
                 </Text>
             </View>
-        </Link>
+        </Pressable>
     </View>);
 }
 
@@ -43,32 +54,31 @@ const styles = StyleSheet.create({
     container: {
         alignSelf: "center",
 
-        flexDirection: "row",
-
-        width: "90%",
-        height: 48,
+        width: "95%",
+        height: 56,
 
         marginBottom: 4,
-
-        paddingTop: 8,
-        paddingLeft: 16,
 
         borderRadius: 24,
     },
 
     link: {
         flex: 1,
+
+        flexDirection: "row",
         
         width: "100%",
         height: "100%",
+
+        paddingTop: 8,
+        paddingLeft: 16,
     },
 
     info: {
-        marginTop: 10,
     },
 
     icon: {
-        marginTop: -8,
+        marginRight: 24
     },
 
     label: {

@@ -6,13 +6,13 @@ import { Link, Redirect } from 'expo-router';
 
 import { Image, ImageBackground } from 'expo-image';
 
+import { LoginData, requestLogin } from '@/handlers/Session';
+
 import { FormInput } from '@/components/form/Input';
 import AuthButton from '@/components/form/AuthButton';
 import PageContainer from '@/components/containers/PageContainer';
 
-import { LoginData, requestLogin } from '@/handlers/Session';
-
-import { DataStatus } from '@/util/types';
+import { DataStatus } from '@/util/Types';
 
 const background_image = require('@/assets/images/background.jpg');
 const title_text = require('@/assets/images/iskolar-text.png');

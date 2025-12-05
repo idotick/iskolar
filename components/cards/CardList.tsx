@@ -8,7 +8,7 @@ type CardListProps = {
 };
 
 export function CardList( { data, style }: CardListProps ){
-    return (<FlatList data={data} horizontal style={[styles.container, style]} renderItem={({item}) => {return <ItemCard border_radius={8}/>}}/>);
+    return (<FlatList data={data} horizontal style={[styles.container, style]} renderItem={({item}) => {return <ItemCard/>}}/>);
 }
 
 const styles = StyleSheet.create({

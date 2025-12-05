@@ -1,7 +1,11 @@
 import { StyleSheet, Text, View, ViewStyle } from "react-native";
-import { NotifData } from "./NotificationList";
-import { capitalize } from "@/util/helpers";
+
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+
+import { NotifData } from "./NotificationList";
+
+import { capitalize } from "@/util/Helpers";
+
 
 type NotificationItemProps = {
     data: NotifData,

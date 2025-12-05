@@ -22,9 +22,10 @@ export function ScrollablePage({ children, style }: ViewProps) {
 type PageProps = {
 	title: string,
 	scrollable?: boolean,
+	contentStyle?: ViewStyle
 } & ViewProps;
 
-export function Page({ children, title, style, scrollable }: PageProps) {
+export function Page({ children, title, style, scrollable, contentStyle }: PageProps) {
 	const router: Router = useRouter();
 
 	const nav = useNavigation();
@@ -47,7 +48,7 @@ export function Page({ children, title, style, scrollable }: PageProps) {
 					<Appbar.Content title={title} titleStyle={{fontWeight: "bold"}}/>
 				</Appbar.Header>
 
-				<View style={[styles.container]}> 
+				<View style={[styles.container, contentStyle]}> 
 					{ children } 
 				</View>
 			</ScrollView>
@@ -63,14 +64,14 @@ export function Page({ children, title, style, scrollable }: PageProps) {
 				<Appbar.Action icon="bell" onPress={() => router.push("/notifications")} />
 			</Appbar.Header>
 
-			<View style={[styles.container]}> 
+			<View style={[styles.container, contentStyle]}> 
 				{ children } 
 			</View>
 		</View>
 	);
 }
 
-export function ModalPage({ children, title, style, scrollable }: PageProps) {
+export function ModalPage({ children, title, style, scrollable, contentStyle }: PageProps) {
 	const router: Router = useRouter();
 
 	const nav = useNavigation();
@@ -89,7 +90,7 @@ export function ModalPage({ children, title, style, scrollable }: PageProps) {
 					<Appbar.Content title={title} titleStyle={{fontWeight: "bold"}}/>
 				</Appbar.Header>
 
-				<View style={[styles.container]}> 
+				<View style={[styles.container, contentStyle]}> 
 					{ children } 
 				</View>
 			</ScrollView>
@@ -103,7 +104,7 @@ export function ModalPage({ children, title, style, scrollable }: PageProps) {
 				<Appbar.Content title={title} titleStyle={{fontWeight: "bold"}}/>
 			</Appbar.Header>
 
-			<View style={[styles.container]}> 
+			<View style={[styles.container, contentStyle]}> 
 				{ children } 
 			</View>
 		</View>

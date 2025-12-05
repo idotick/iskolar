@@ -8,7 +8,7 @@ import { CameraView, CameraType, BarcodeScanningResult, useCameraPermissions } f
 
 import { MaterialIcons } from '@expo/vector-icons';
 
-import { PointerEventType } from '@/util/types';
+import { PointerEventType } from '@/util/Types';
 
 type TagScannerProps = {
     scanning: boolean,

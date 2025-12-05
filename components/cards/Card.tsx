@@ -1,15 +1,19 @@
 import { ExternalPathString, Link, RelativePathString } from "expo-router";
 import { StyleSheet, ViewProps, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { useTheme } from "@/constants/Theme";
 
-export type CardProps = ViewProps & {
-    border_radius: number
-};
+export type CardProps = ViewProps;
 
-export function Card({ children, style, border_radius }: CardProps){
+export function Card({ children, style }: CardProps){
+    const theme = useTheme();
+
+    const themeStyle = {
+        backgroundColor: theme.colors.secondary
+    };
+
     return (
-        <View style={[styles.container, style, {borderRadius: border_radius}]}>
-            <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#303235d3", "transparent"]} style={[ styles.gradient, {borderRadius: border_radius}]}/>
+        <View style={[styles.container, style, themeStyle]}>
             {children}
         </View>
     );
@@ -19,9 +23,6 @@ export function Card({ children, style, border_radius }: CardProps){
 const styles = StyleSheet.create({
     container: {
         overflow: "hidden",
-
-        borderWidth: 1,
-        borderColor: "white",
     },
 
     gradient: {

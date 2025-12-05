@@ -16,7 +16,7 @@ export default function SettingsLayout() {
   return (
     <Stack screenOptions={{
         headerShown: false
-    }}>
+      }}>
       <Stack.Screen name="profile" options={{ presentation: 'modal',  title: '' }} />
       <Stack.Screen name="preferences" options={{ presentation: 'modal',  title: '' }} />
     </Stack>
