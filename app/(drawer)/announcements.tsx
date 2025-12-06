@@ -69,28 +69,4 @@ const styles = StyleSheet.create({
 
 		marginTop: 24 
 	},
-
-	modal: {
-		alignSelf: "center",
-
-		width: "75%",
-		height: "75%",
-
-		borderRadius: 24,
-	},
-
-	modalCard: {
-		flex: 1,
-	},
-
-	modalTitle: {
-		marginTop: 16,
-
-		fontWeight: "bold",
-		fontSize: 20,
-	},
-
-	modalContent: {
-
-	}
 });

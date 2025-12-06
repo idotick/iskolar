@@ -56,7 +56,7 @@ export default function AnnouncementPage(){
                 
                 <ScrollView style={styles.scrollContainer}>
                     <Text style={styles.title}>{data.title}</Text>
-                    <Text style={styles.subtitle}>From the {data.author} </Text>
+                    <Text style={styles.subtitle}> Posted by {data.author} </Text>
                     <View style={styles.markdownContainer}>
                         <Markdown rules={{
                             image: (node) => {
@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
         width: "100%",
 
         fontSize: 24,
+        letterSpacing: 1,
         fontWeight: "bold",
 
         marginBottom: 8,
@@ -106,6 +107,10 @@ const styles = StyleSheet.create({
 
     subtitle: {
         marginBottom: 8,
+
+        fontStyle: "italic",
+
+        color: "gray",
     },
 
     markdownContainer: {
@@ -119,9 +124,10 @@ const styles = StyleSheet.create({
 
         borderWidth: 1,
         borderColor: "#ffffff34",
+        borderRadius: 4,
 
         backgroundColor: "white",
 
-        elevation: 50,
+        elevation: 10,
     }
 });
