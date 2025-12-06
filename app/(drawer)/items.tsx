@@ -1,47 +1,57 @@
 import { useState } from 'react';
 
-import { Text, StyleSheet, Button, TouchableOpacity, View } from 'react-native';
+import { Text, StyleSheet, TouchableOpacity, View, ViewProps } from 'react-native';
+
+import { Banner, Dialog, Portal, Button, Searchbar} from 'react-native-paper';
+
+import { Entypo } from '@expo/vector-icons';
 
 import Page from '@/components/pages/Page';
 import PageContainer from '@/components/containers/PageContainer';
 import TagScanner from '@/components/scanners/TagScanner';
+import ScannerDialog from '@/components/scanners/ScannerDialog';
+import { useTheme } from '@/constants/Theme';
 
-function ScannerContainer(){
-    const [scanning, setScanning] = useState<boolean>(false);
 
-    function onScan(data: string){
-        setScanning(false);
-
-        console.log(data);
-    }
-
-    function onExit(){
-        setScanning(false);
-    }
-
-    function startScan(){
-        setScanning(true);
-    }
-
-    return (<View style={styles.container}>
-        <Text style={styles.message}> Found a lost item? Scan here. </Text>
-
-            <TouchableOpacity style={styles.button} onPress={startScan}>
-                <Text style={styles.buttonLabel}> SCAN </Text>
-            </TouchableOpacity>
-
-        <TagScanner scanning={scanning} onScan={onScan} onExit={onExit}/>
-    </View>);
-
-}
 
 export default function ItemsScreen() {
+    const theme = useTheme();
+
+    const [ scanning, setScanning ] = useState<boolean>(false);
+
+    const [ scanned, setScanned ] = useState<string>("");
+
+    const [ dialogVisible, setDialogVisible ] = useState<boolean>(false);
+
+    const [ query, setQuery ] = useState<string>("");
+
+    function onScanned(data: string){
+        setScanned(data);
+        setScanning(false);
+
+        setTimeout(() => setDialogVisible(true), 100);
+    }
+
+    const themedStyle = {
+		backgroundColor: theme.colors.secondary
+	};
+    
     return (
         <PageContainer>
             <Page title={"Lost & Found"} style={styles.page}>
-                
+                <Banner visible actions={[{label: "OPEN CAMERA", onPress: () => setScanning(true) }]} icon={({ size }) => {
+                    return <Entypo size={size} name={"shopping-bag"}/>
+                }}>
+                    Found a lost item? Scan now to report it to the owner and return it to the Discipline Office.
+                </Banner>
 
-                <ScannerContainer/>
+                <View style={styles.search}>
+                    <Searchbar placeholder={"Search for a lost item "} placeholderTextColor={theme.colors.tertiary} style={themedStyle} value={query} onChangeText={setQuery} iconColor={"black"}/>
+                </View>
+
+                <TagScanner scanning={scanning} onScan={onScanned} onExit={() => setScanning(false)}/>
+
+                <ScannerDialog active={dialogVisible} data={scanned} onDismiss={() => setDialogVisible(false)}/>
                 
             </Page>
         </PageContainer>
@@ -66,12 +76,13 @@ const styles = StyleSheet.create({
         height: "100%",
     },
 
-    background: {
-        position: "absolute",
+    search: {
+		alignSelf: "center", 
 
-        width: '100%',
-        height: '100%',
-    },
+		width: "86%", 
+
+		marginTop: 24 
+	},
 
     message: {       
         fontSize: 16,

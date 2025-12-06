@@ -9,17 +9,20 @@ type AnnouncementModalProps = {
 } & ViewProps;
 
 export default function AnnouncementModal( { data, visible, onDismiss }: AnnouncementModalProps ){
+    function onDismissed(){
+        onDismiss();
+    }
 
     return (<Portal>
-        <Modal style={styles.modal} contentContainerStyle={styles.container} visible={visible} onDismiss={onDismiss} >
+        <Modal style={styles.modal} contentContainerStyle={styles.container} visible={visible} onDismiss={onDismissed} >
             {
                 (data) && (<>
                     <Card style={styles.card}>
-                    <Card.Title titleStyle={styles.title} title={data.title}/>
-                    <Card.Cover style={styles.cover} source={{ uri: 'https://hypixel.net/attachments/sweet-wonderland-png.3281057/' }} />
-                    <Card.Content>
-                        <Text style={styles.content}> {data.overview} </Text>
-                    </Card.Content>
+                        <Card.Title titleStyle={styles.title} title={data.title}/>
+                        <Card.Cover style={styles.cover} source={{ uri: 'https://hypixel.net/attachments/sweet-wonderland-png.3281057/' }} />
+                        <Card.Content>
+                            <Text style={styles.content}> {data.overview} </Text>
+                        </Card.Content>
                     
                     </Card>
                 </>)
@@ -29,10 +32,14 @@ export default function AnnouncementModal( { data, visible, onDismiss }: Announc
 };
 
 const styles = StyleSheet.create({
-    modal: {
-
+    portal: {
+        
     },
     
+    modal: {
+        
+    },
+
     container: {
         alignSelf: "center",
 
@@ -49,6 +56,11 @@ const styles = StyleSheet.create({
 
     card: {
         flex: 1,
+
+        backgroundColor: "white",
+
+        elevation: 0,
+        shadowOpacity: 0
     },
 
     title: {

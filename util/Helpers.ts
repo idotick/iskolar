@@ -75,3 +75,17 @@ export function batchToGrade(batch: string): number {
 export function clamp(x: number, min: number, max: number){
   return Math.max(Math.min(x, max), min);
 }
+
+export function validateItemID(data: string){
+  const re: RegExp = /^[a-zA-Z0-9]{8}$/;
+  return re.test(data);
+}
+
+export function extractItemData(data: string){
+  const batch: string = "20" + data.slice(3, 5);
+  const studentNumber: string = data.slice(5, 8);
+
+  const studentID: string = "14-" + batch + "-" + studentNumber;
+
+  return { itemID: data.slice(0, 3), studentID: studentID, batch: batch, studentNumber: studentNumber, };
+}

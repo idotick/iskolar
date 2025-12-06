@@ -9,6 +9,7 @@ import { CameraView, CameraType, BarcodeScanningResult, useCameraPermissions } f
 import { MaterialIcons } from '@expo/vector-icons';
 
 import { PointerEventType } from '@/util/Types';
+import { Portal } from 'react-native-paper';
 
 type TagScannerProps = {
     scanning: boolean,
@@ -56,7 +57,7 @@ export default function TagScanner( { scanning, onScan, onExit }: TagScannerProp
         </TouchableOpacity>
         
         <View style={styles.labelContainer}>
-            <Text style={styles.label}> SCAN HERE </Text>
+            <Text style={styles.label}> Scan the code here  </Text>
         </View>
 
          <View style={styles.guide}/>
@@ -82,15 +83,13 @@ const styles = StyleSheet.create({
 
         alignSelf: "center",
 
-        width: "100%",
-
         padding: 8,
 
-        top: 64,
+        top: 156,
 
+        borderRadius: 24,
 
-        backgroundColor: "#6a8be480"
-
+        backgroundColor: "#3b61a7bb",
     },
 
     label: {
@@ -119,6 +118,8 @@ const styles = StyleSheet.create({
 
         borderRadius: 12,
 
+        backgroundColor: "#ffffff",
+        opacity: 0.2,
     },
 
     message: {
