@@ -1,15 +1,24 @@
 import { FlatList, StyleSheet, ViewProps } from 'react-native';
 
-import AnnouncementView from './AnnouncementOverview';
-
-import { AnnouncementData } from '@/util/Types';
+import AnnouncementView from './AnnouncementView'
+import { AnnouncementData } from '@/handlers/Announcements';
+import { useState } from 'react';
 
 type AnnouncementListProps = {
 	data: AnnouncementData[],
 	onInteract: (data: AnnouncementData) => void
+	onRefreshed: () => void
 } & ViewProps;
 
-export default function AnnouncementList( { data, style, onInteract } : AnnouncementListProps ) {
+export default function AnnouncementList( { data, style, onInteract, onRefreshed } : AnnouncementListProps ) {
+	const [refreshing, setRefreshing] = useState<boolean>(false);
+	
+	function onRefresh(){
+		setRefreshing(true);
+		onRefreshed()
+		setTimeout(() => setRefreshing(false), 200);
+	}
+
 	return (
 		<FlatList
 			data={data}
@@ -21,6 +30,8 @@ export default function AnnouncementList( { data, style, onInteract } : Announce
 					onInteract={onInteract}
 				/>
 			)}
+			onRefresh={onRefresh}
+			refreshing={refreshing}
 		/>
 	);
 }

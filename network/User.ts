@@ -16,8 +16,6 @@ export async function registerUser(id: string, email: string, name: string, pass
     
     const hash: string = sha512(password);
 
-    console.log("Posted register request.");
-
     try {
         const res: Response = await fetch(url, {
             method: "POST",
@@ -37,8 +35,6 @@ export async function registerUser(id: string, email: string, name: string, pass
         if (json.code){
             return { code: json.code, cookie: null };
         }
-
-        console.log("Successfully posted register request.");
 
         return { code: json.code, cookie: json.cookie };
         

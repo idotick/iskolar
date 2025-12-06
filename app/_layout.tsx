@@ -58,9 +58,10 @@ function RootLayoutNav() {
         headerShown: false
       }
     }>
-      <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
-      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-      <Stack.Screen name="(settings)" options={{ headerShown: false }} />
+      <Stack.Screen name="(drawer)" options={{}} />
+      <Stack.Screen name="(auth)" options={{}} />
+      <Stack.Screen name="(settings)" options={{}} />
+      <Stack.Screen name="announcements" options={{}} />
       <Stack.Screen name="settings" options={{ presentation: 'modal', title: ''}} />
       <Stack.Screen name="notifications" options={{ presentation: 'modal',  title: '' }} />
     </Stack>

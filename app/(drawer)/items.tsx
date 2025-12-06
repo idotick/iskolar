@@ -11,6 +11,7 @@ import PageContainer from '@/components/containers/PageContainer';
 import TagScanner from '@/components/scanners/TagScanner';
 import ScannerDialog from '@/components/scanners/ScannerDialog';
 import { useTheme } from '@/constants/Theme';
+import { Bold } from '@/components/utility/Text';
 
 
 
@@ -28,7 +29,6 @@ export default function ItemsScreen() {
     function onScanned(data: string){
         setScanned(data);
         setScanning(false);
-
         setTimeout(() => setDialogVisible(true), 100);
     }
 
@@ -42,7 +42,7 @@ export default function ItemsScreen() {
                 <Banner visible actions={[{label: "OPEN CAMERA", onPress: () => setScanning(true) }]} icon={({ size }) => {
                     return <Entypo size={size} name={"shopping-bag"}/>
                 }}>
-                    Found a lost item? Scan now to report it to the owner and return it to the Discipline Office.
+                    Found a lost item? If it has an UNLAD supported sticker, scan now to report it to the owner. Either way, please return it to the <Bold>Discipline Office</Bold>.
                 </Banner>
 
                 <View style={styles.search}>

@@ -1,9 +1,11 @@
 import { Text, View, StyleSheet, ViewProps, Pressable } from 'react-native';
+import { Card } from 'react-native-paper';
 
 import RowContainer from '@/components/containers/RowContainer';
-import { Card } from 'react-native-paper';
+
 import { useTheme } from '@/constants/Theme';
-import { AnnouncementData } from '@/util/Types';
+import { AnnouncementContent, AnnouncementData, requestAnnouncement } from '@/handlers/Announcements';
+import { useEffect, useState } from 'react';
 
 type AnnouncementViewProps = {
 	data: AnnouncementData,
@@ -21,13 +23,15 @@ export default function AnnouncementView({ data, onInteract }: AnnouncementViewP
 		onInteract(data);
 	}
 
-	const { date, title } = data;
+	const { uuid, created, title, author } = data;
 
 	return (
 		<Card style={[styles.container, themedStyle]}>
 			<Pressable style={styles.link} onPress={onPress}>
-				<Card.Title titleStyle={styles.title} title={title} subtitleStyle={styles.subtitle} subtitle={date.toLocaleDateString("en-us")} />
-				<Card.Cover source={{ uri: 'https://hypixel.net/attachments/sweet-wonderland-png.3281057/' }} />
+				<Card.Content>
+					<Text style={styles.date}> {created.toLocaleDateString("en-us")} </Text>
+				</Card.Content>
+				<Card.Title titleStyle={styles.title} title={title} subtitleStyle={styles.subtitle} subtitle={"Posted by " + author} />
 			</Pressable>
 			
 		</Card>
@@ -47,6 +51,16 @@ const styles = StyleSheet.create({
 
 	subtitle: {
 		color: "gray",
+		fontSize: 12
+	},
+
+	date: {
+		position: "absolute",
+
+		right: 12,
+		top: 8,
+		
+		color: "#58498fff",
 		fontSize: 12
 	},
 

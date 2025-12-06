@@ -22,8 +22,6 @@ export async function createTransaction(session: string, uuid: string, items: Or
 
     const packed: string = packItemData(items);
 
-    console.log("Posted transaction creation request to server.");
-
     try {
         const res: Response = await fetch(url, {
             method: "POST",

@@ -89,3 +89,7 @@ export function extractItemData(data: string){
 
   return { itemID: data.slice(0, 3), studentID: studentID, batch: batch, studentNumber: studentNumber, };
 }
+
+export function unixToDate(time: number): Date {
+  return new Date(time);
+}
